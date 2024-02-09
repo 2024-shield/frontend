@@ -20,4 +20,11 @@ export const GlobalStyle = createGlobalStyle`
     ul, ol, li{
         list-style: none;
     }
+
+    #root{
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #f2f2f2;
+    }
 `;

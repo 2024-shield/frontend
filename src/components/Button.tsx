@@ -6,8 +6,8 @@ interface ButtonProps{
 }
 
 const StyledButton = styled.button`
-    width: 30vw;
-    height: 15px;
+    width: 150px;
+    height: 30px;
     background-color: ${(props) => props.theme.colors.mainNavy};
     color: ${theme.colors.white};
 `
