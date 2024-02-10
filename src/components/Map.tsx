@@ -28,12 +28,13 @@ const MapStyle = styled.div`
 
 const Map = () => {
   const mapRef = useRef<HTMLDivElement>(null);
+  const apiKey = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
 
   useEffect(() => {
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCkCKnD3_x9V5rUJvhGqQ1XpZIjgQ8Pejw&callback=initMap`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
     script.async = true;
-    script.defer = true;
+    // script.defer = true;
     document.body.appendChild(script);
 
     window.initMap = () => {
