@@ -3,9 +3,9 @@ import Map from "../components/Map";
 
 const Main = () => {
     return( 
-    <div>
-        <div className="Main">
-            <Header />
+    <div className="Mainpage">
+        <Header />
+        <div className="map">
             <Map />
         </div>
     </div>

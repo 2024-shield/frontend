@@ -6,8 +6,6 @@ import { DefaultTheme } from "styled-components";
 const colors = {
     mainNavy: "#101957",
     mainBlue: "#4350A7",
-    white: "#FFFFFF",
-    black: "#000000",
 }
 
 const fontSize = {

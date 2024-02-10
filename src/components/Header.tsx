@@ -18,7 +18,7 @@ const StyledHeader = styled.header`
     z-index: 100; /* 다른 요소 위에 나타나도록 높은 z-index 값을 설정 */
 `
 
-const Header = (props: any) => {
+const Header = () => {
     return(
         <StyledHeader>
             <div className="home">

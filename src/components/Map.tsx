@@ -1,18 +1,37 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import styled from 'styled-components';
 
 declare global {
   interface Window {
     initMap: () => void;
-    google: any;
   }
 }
 
-const Map: React.FC = () => {
+interface Option{
+    value: string,
+    name: string
+}
+
+interface SelecBoxProps {
+    options: Option[],
+}
+
+const SelectboxStyle = styled.div`
+    color: red;
+    height: 4vh;
+`
+
+const MapStyle = styled.div`
+    width: 100%;
+    height: 90vh;
+`
+
+const Map = () => {
   const mapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_MAP_API_KEY}&callback=initMap`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyCkCKnD3_x9V5rUJvhGqQ1XpZIjgQ8Pejw&callback=initMap`;
     script.async = true;
     script.defer = true;
     document.body.appendChild(script);
@@ -27,9 +46,40 @@ const Map: React.FC = () => {
     return () => {
       document.body.removeChild(script);
     };
-  }, []);
+}, []);
 
-  return <div ref={mapRef} style={{ width: '100%', height: '100vh' }} />;
+const OPTIONS: Option[] = [
+	{ value: "apple", name: "사과" },
+	{ value: "banana", name: "바나나" },
+	{ value: "orange", name: "오렌지" },
+];
+
+const SelectBox: React.FC<SelecBoxProps> = (props) => {
+	return (
+		<select>
+			{props.options.map((option: Option) => (
+				<option
+					key={option.value}
+					value={option.value}
+				>
+					{option.name}
+				</option>
+			))}
+		</select>
+	);
+};
+
+return(
+    <>  
+        <SelectboxStyle>
+            <SelectBox options={OPTIONS}></SelectBox>
+        </SelectboxStyle>
+
+        <MapStyle>
+            <div ref={mapRef} style={{ width: '100%', height: '90vh' }}/>
+        </MapStyle>
+    </>
+    );
 };
 
 export default Map;
