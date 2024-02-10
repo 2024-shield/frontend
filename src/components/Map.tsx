@@ -7,20 +7,6 @@ declare global {
   }
 }
 
-interface Option{
-    value: string,
-    name: string
-}
-
-interface SelecBoxProps {
-    options: Option[],
-}
-
-const SelectboxStyle = styled.div`
-    color: red;
-    height: 4vh;
-`
-
 const MapStyle = styled.div`
     width: 100%;
     height: 90vh;
@@ -49,36 +35,11 @@ const Map = () => {
     };
 }, []);
 
-const OPTIONS: Option[] = [
-	{ value: "apple", name: "사과" },
-	{ value: "banana", name: "바나나" },
-	{ value: "orange", name: "오렌지" },
-];
-
-const SelectBox: React.FC<SelecBoxProps> = (props) => {
-	return (
-		<select>
-			{props.options.map((option: Option) => (
-				<option
-					key={option.value}
-					value={option.value}
-				>
-					{option.name}
-				</option>
-			))}
-		</select>
-	);
-};
-
 return(
     <>  
-        <SelectboxStyle>
-            <SelectBox options={OPTIONS}></SelectBox>
-        </SelectboxStyle>
-
-        <MapStyle>
-            <div ref={mapRef} style={{ width: '100%', height: '90vh' }}/>
-        </MapStyle>
+      <MapStyle>
+          <div ref={mapRef} style={{ width: '100%', height: '90vh' }}/>
+      </MapStyle>
     </>
     );
 };
