@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as XLSX from 'xlsx';
 import styled from 'styled-components';
 import Header from "../components/Header";
@@ -48,6 +48,8 @@ const SelectBox: React.FC<SelecBoxProps> = (props) => {
 
 
 const Main = () => {
+    const [options, setOptions] = useState<Option[]>([]);
+
     useEffect(() => {
         fetch('../../data/docity.xlsx')
         .then(response => response.arrayBuffer())
@@ -59,8 +61,15 @@ const Main = () => {
             const worksheet = workbook.Sheets[workbook.SheetNames[0]];
 
             // 셀 데이터를 파싱하여 출력
-            const jsonData = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+            const jsonData = XLSX.utils.sheet_to_json(worksheet, {header: 1}) as any[][];
             console.log("데이터에유")
+
+            const newOptions: Option[] = jsonData.map((row: any[]) => ({
+                value: row[1],
+                name: row[1],
+            }));
+
+            setOptions(newOptions);
             //console.log(jsonData[1][3]);
         })
         .catch(error => console.error('Error:', error));
@@ -70,7 +79,7 @@ const Main = () => {
     <div className="Mainpage">
         <Header />
         <SelectboxStyle>
-            <SelectBox options={OPTIONS}></SelectBox>
+            <SelectBox options={options}></SelectBox>
         </SelectboxStyle>
         <div className="map">
             <Map />
