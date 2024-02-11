@@ -3,21 +3,11 @@ import * as XLSX from 'xlsx';
 import styled from 'styled-components';
 import Header from "../components/Header";
 import Map from "../components/Map";
-
-interface Docity {
-    do: string;
-    name: string;
-    longitude: number;
-    latitude: number;
-  }
+import "../styles/style.css";
 
 interface Option{
     value: string,
     name: string
-}
-
-interface SelecBoxProps {
-    options: Option[],
 }
 
 const SelectboxStyle = styled.div`
@@ -25,64 +15,118 @@ const SelectboxStyle = styled.div`
     height: 4vh;
 `
 
-const OPTIONS: Option[] = [
-	{ value: "apple", name: "사과" },
-	{ value: "banana", name: "바나나" },
-	{ value: "orange", name: "오렌지" },
-];
+const ImgStyle = styled.img`
+    width: 50%;
+    transition: .3s;
+`
 
-const SelectBox: React.FC<SelecBoxProps> = (props) => {
-	return (
-		<select>
-			{props.options.map((option: Option) => (
-				<option
-					key={option.value}
-					value={option.value}
-				>
-					{option.name}
-				</option>
-			))}
-		</select>
-	);
-};
+const docityList: Option[] = [
+    { value: "Seoul", name: "서울특별시" },
+	{ value: "Busan", name: "부산광역시" },
+    { value: "Daegu", name: "대구광역시" },
+    { value: "Incheon", name: "인천광역시" },
+	{ value: "Gwangju", name: "광주광역시" },
+	{ value: "Daejeon", name: "대전광역시" },
+    { value: "Ulsan", name: "울산광역시" },
+    // { value: "Sejong", name: "세종특별자치시" },
+    { value: "Gyeonggi-do", name: "경기도" },
+    { value: "Gangwon-do", name: "강원도" },
+    { value: "Chungcheong-do", name: "충청도" },
+    { value: "Jeonla-do", name: "전라도" },
+    { value: "Gyeongsang-do", name: "경상도" },
+    { value: "Jeju", name: "제주" },
+];
 
 
 const Main = () => {
-    const [options, setOptions] = useState<Option[]>([]);
+    const [docityselected, setdocitySelected] = useState("Seoul");
+    const [docityfilteredOptions, docitysetFilteredOptions] = useState<Option[]>([]);
+    const [longitudeselected, setlongitudeSelected] = useState(127.0495556);
+    const [latitudeselected, setlatitudeSelected] = useState(37.514575);
 
-    useEffect(() => {
-        fetch('../../data/docity.xlsx')
-        .then(response => response.arrayBuffer())
-        .then(arrayBuffer => {
+    const fetchData = async () => {
+        try {
+            const response = await fetch('../../data/docity.xlsx');
+            const arrayBuffer = await response.arrayBuffer();
             const data = new Uint8Array(arrayBuffer);
             const workbook = XLSX.read(data, {type: 'array'});
-
-            // 첫 번째 시트를 가져옴
             const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+            return XLSX.utils.sheet_to_json(worksheet, {header: 1}) as any[][];
+        } catch (error) {
+            console.error('Error:', error);
+            return [];
+        }
+    }
 
-            // 셀 데이터를 파싱하여 출력
-            const jsonData = XLSX.utils.sheet_to_json(worksheet, {header: 1}) as any[][];
-            console.log("데이터에유")
+    useEffect(() => {
+        fetchData().then(jsonData => {
+            const newFilteredOptions: Option[] = jsonData
+                .filter((row: any[]) => row[1] === docityselected)
+                .map((row: any[]) => ({
+                    value: row[2],
+                    name: row[2],
+                }));
+                
+            docitysetFilteredOptions(newFilteredOptions);
+    
+            if (newFilteredOptions.length > 0) {
+                const selectedRow = jsonData.find((row: any[]) => row[2] === newFilteredOptions[0].value);
+                if (selectedRow) {
+                    setlongitudeSelected(selectedRow[3]);
+                    setlatitudeSelected(selectedRow[4]);
+                }
+            }
+        });
+    }, [docityselected]);
 
-            const newOptions: Option[] = jsonData.map((row: any[]) => ({
-                value: row[1],
-                name: row[1],
-            }));
+    const doChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setdocitySelected(e.target.value);
+    }
 
-            setOptions(newOptions);
-            //console.log(jsonData[1][3]);
-        })
-        .catch(error => console.error('Error:', error));
-    });
+    const doChangeSecondSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const newSelectedValue = e.target.value;
+    
+        fetchData().then(jsonData => {
+            const selectedRow = jsonData.find((row: any[]) => row[2] === newSelectedValue);
+            if (selectedRow) {
+                setlongitudeSelected(selectedRow[3]);
+                console.log(selectedRow[3] + "이고요");
+                setlatitudeSelected(selectedRow[4]);
+                console.log(selectedRow[4] + "이고용");
+            }
+        });
+    }
 
     return( 
     <div className="Mainpage">
         <Header />
-        <SelectboxStyle>
-            <SelectBox options={options}></SelectBox>
+        <SelectboxStyle className='selectBox'>
+            <select onChange={doChange} className='select'>
+                {docityList.map((item) => {
+                    return(
+                        <>
+                            <option value={item.value} key={item.value}>
+                                {item.name}
+                            </option>
+                        </>
+                    )
+                })}
+            </select>
+            
+            {docityfilteredOptions.length > 0 && (
+                <select onChange={doChangeSecondSelect} className='select'>
+                    {docityfilteredOptions.map((item, index) => {
+                        return(
+                            <option value={item.value} key={index}>
+                                {item.name}
+                            </option>
+                        )
+                    })}
+                </select>
+            )}
         </SelectboxStyle>
         <div className="map">
-            <Map />
+            <Map lat={latitudeselected} lng={longitudeselected} />
         </div>
     </div>
 

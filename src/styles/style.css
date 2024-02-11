@@ -1,0 +1,29 @@
+select{
+    width: 200px;
+    height: 4vh;
+    font-size: 12px;
+    border: 1px solid rgb(183, 183, 183);
+}
+
+.selectBox {
+    display: flex;
+    border-radius: 4px;
+}
+
+.selectBox .select {
+    background: transparent;
+    border: 0 none;
+    outline: 0 none;
+    padding: 0 5px;
+    position: relative;
+    z-index: 3;
+}
+.selectBox .select option {
+    background: #101957;
+    color: #fff;
+    padding: 3px 0;
+    font-size: 16px;
+}
+.select option :focus{
+    background-color: #4350A7;
+}

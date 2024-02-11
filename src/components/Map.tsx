@@ -7,13 +7,19 @@ declare global {
   }
 }
 
+interface MapProps {
+  lat: number;
+  lng: number;
+}
+
 const MapStyle = styled.div`
     width: 100%;
     height: 90vh;
 `
 
-const Map = () => {
+const Map: React.FC<MapProps> = ({ lat, lng }) => {
   const mapRef = useRef<HTMLDivElement>(null);
+  const mapObjRef = useRef<google.maps.Map | null>(null);
   const apiKey = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
 
   useEffect(() => {
@@ -24,9 +30,10 @@ const Map = () => {
     document.body.appendChild(script);
 
     window.initMap = () => {
-      new window.google.maps.Map(mapRef.current!, {
-        center: { lat: 37.5665, lng: 126.9780 },
-        zoom: 8,
+      mapObjRef.current = new window.google.maps.Map(mapRef.current!, {
+        //center: { lat: 37.5665, lng: 126.9780 },
+        center: { lat: lat, lng: lng },
+        zoom: 13,
       });
     };
 
@@ -34,6 +41,12 @@ const Map = () => {
       document.body.removeChild(script);
     };
 }, []);
+
+useEffect(() => {
+  if (mapObjRef.current) {
+    mapObjRef.current.setCenter({ lat: lat, lng: lng });  // 위도, 경도가 변경될 때마다 지도의 중심을 변경합니다.
+  }
+}, [lat, lng]);
 
 return(
     <>  
