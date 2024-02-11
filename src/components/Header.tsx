@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import theme from "../styles/theme";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFile, faHouse, faUser } from "@fortawesome/free-solid-svg-icons";
 
 const StyledHeader = styled.header` 
     height: 6vh;
@@ -22,19 +24,18 @@ const Header = () => {
     return(
         <StyledHeader>
             <div className="home">
-                홈
+                <FontAwesomeIcon icon={faHouse} />
             </div>
 
             <Link to="/login">
                 <div className="report">
-                    레포트에용
+                    <FontAwesomeIcon icon={faFile} /> 보고서
                 </div>
             </Link>
 
             <Link to="/mypage">
                 <div className="my">
-                    {/* https://velog.io/@jihukimme/React-%EB%AA%A8%EB%B0%94%EC%9D%BC-%EC%9B%B9-%EB%A7%8C%EB%93%A4%EA%B8%B0-%EB%AA%A8%EB%B0%94%EC%9D%BC-%ED%99%94%EB%A9%B4-%ED%81%AC%EA%B8%B0-%ED%97%A4%EB%8D%94-%EB%84%A4%EB%B9%84%EA%B2%8C%EC%9D%B4%EC%85%98-%EB%B0%94-%EA%B8%B0%ED%83%80-%EC%9C%A0%EC%9A%A9%ED%95%9C-%EC%A0%95%EB%B3%B4 */}
-                    마이페이지에용
+                    <FontAwesomeIcon icon={faUser} /> 마이페이지
                 </div>
             </Link>
         </StyledHeader>

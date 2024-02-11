@@ -6,6 +6,10 @@ import Router from './Router'
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from './styles/GlobalStyle';
 import theme from "./styles/theme";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faHouse } from '@fortawesome/free-solid-svg-icons';
+
+library.add(faHouse)
 
 function App() {
   //const [count, setCount] = useState(0)
