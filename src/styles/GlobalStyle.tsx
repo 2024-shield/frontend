@@ -28,4 +28,8 @@ export const GlobalStyle = createGlobalStyle`
         margin-right: auto;
         background-color: #f2f2f2;
     }
+
+    input:focus{
+        outline: none;
+    }
 `;

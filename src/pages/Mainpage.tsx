@@ -15,11 +15,6 @@ const SelectboxStyle = styled.div`
     height: 4vh;
 `
 
-const ImgStyle = styled.img`
-    width: 50%;
-    transition: .3s;
-`
-
 const docityList: Option[] = [
     { value: "Seoul", name: "서울특별시" },
 	{ value: "Busan", name: "부산광역시" },
