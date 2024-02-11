@@ -1,20 +1,26 @@
 import styled from "styled-components";
 import theme from "../styles/theme";
+import { ReactNode } from 'react';;
 
 interface ButtonProps{
-    text: string
+    text: ReactNode;
+	onClick?: () => void;
 }
 
 const StyledButton = styled.button`
-    width: 150px;
-    height: 30px;
-    background-color: ${(props) => props.theme.colors.mainNavy};
+    width: 80%;
+    height: 40px;
+    background-color: ${theme.colors.mainNavy};
     color: #FFFFFF;
+    border-radius: 5px;
+    border: 1px solid ${theme.colors.mainNavy};
 `
 
-const Button = ({ text }: ButtonProps) => {
+const Button = ({ text, onClick }: ButtonProps) => {
     return(
-        <StyledButton>{ text }</StyledButton>
+        <StyledButton onClick={onClick}>
+            {text}
+        </StyledButton>
     )
 }
 

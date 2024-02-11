@@ -23,17 +23,19 @@ const StyledHeader = styled.header`
 const Header = () => {
     return(
         <StyledHeader>
-            <div className="home">
-                <FontAwesomeIcon icon={faHouse} />
-            </div>
+            <Link to="/main">
+                <div className="home">
+                    <FontAwesomeIcon icon={faHouse} />
+                </div>
+            </Link>
 
-            <Link to="/login">
+            <Link to="/report">
                 <div className="report">
                     <FontAwesomeIcon icon={faFile} /> 보고서
                 </div>
             </Link>
 
-            <Link to="/mypage">
+            <Link to="/my">
                 <div className="my">
                     <FontAwesomeIcon icon={faUser} /> 마이페이지
                 </div>

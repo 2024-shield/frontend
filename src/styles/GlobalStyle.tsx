@@ -1,6 +1,7 @@
 // 브라우저마다 다른 기본 스타일을 초기화하고
 // 전역에서 쓰일 스타일들을 정의
 import { createGlobalStyle } from "styled-components";
+import theme from "../styles/theme";
 export const GlobalStyle = createGlobalStyle`
 
     *{
@@ -27,6 +28,16 @@ export const GlobalStyle = createGlobalStyle`
         margin-left: auto;
         margin-right: auto;
         background-color: #f2f2f2;
+    }
+
+    hr{
+        width: 80%;
+        height: 1px;
+        background-color:  ${theme.colors.mainNavy};
+    }
+
+    button{
+        padding: 10px;
     }
 
     input:focus{
