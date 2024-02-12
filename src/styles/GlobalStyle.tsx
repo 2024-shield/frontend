@@ -32,7 +32,7 @@ export const GlobalStyle = createGlobalStyle`
 
     hr{
         width: 80%;
-        height: 1px;
+        height: 2px;
         background-color:  ${theme.colors.mainNavy};
     }
 

@@ -10,6 +10,7 @@ const StyledInput = styled.input`
     padding-left: 10px;
     margin: 20px 0px;
     border: 0px;
+    border-radius: 3px;
 `
 
 const Input = ({ props_placeholder }: InputProps) => {
