@@ -4,6 +4,16 @@ import Input from '../components/Input';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import "../styles/style.css";
+import Selectbox from '../components/Selectbox';
+import { useEffect, useState } from 'react';
+import * as XLSX from 'xlsx';
+
+
+interface Option {
+    value: string;
+    name: string;
+  }
+  
 
 const SignuppageStyle = styled.div`
     width: 100%;
@@ -36,6 +46,9 @@ const InputStyle = styled.input`
     border-radius: 3px;
 `
 
+const SelectStyle = styled.div`
+`
+
 const NamedivStyle = styled.div`
 `
 
@@ -59,6 +72,7 @@ const BelongdivStyle = styled.div`
 `
 
 const AreadivStyle = styled.div`
+  width: 100%;
 `
 
 const PhonedivStyle = styled.div`
@@ -70,6 +84,62 @@ const Signup = () => {
     const onSubmit = () => {
         navigate("/")
     }
+
+    const [docityselected, setdocitySelected] = useState('Seoul');
+  const [docityfilteredOptions, docitysetFilteredOptions] = useState<Option[]>([]);
+  const [longitudeselected, setlongitudeSelected] = useState(127.0495556);
+  const [latitudeselected, setlatitudeSelected] = useState(37.514575);
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch('../../data/docity.xlsx');
+      const arrayBuffer = await response.arrayBuffer();
+      const data = new Uint8Array(arrayBuffer);
+      const workbook = XLSX.read(data, { type: 'array' });
+      const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+      return XLSX.utils.sheet_to_json(worksheet, { header: 1 }) as any[][];
+    } catch (error) {
+      console.error('Error:', error);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    fetchData().then((jsonData) => {
+      const newFilteredOptions: Option[] = jsonData
+        .filter((row: any[]) => row[1] === docityselected)
+        .map((row: any[]) => ({
+          value: row[2],
+          name: row[2],
+        }));
+
+      docitysetFilteredOptions(newFilteredOptions);
+
+      if (newFilteredOptions.length > 0) {
+        const selectedRow = jsonData.find((row: any[]) => row[2] === newFilteredOptions[0].value);
+        if (selectedRow) {
+          setlongitudeSelected(selectedRow[3]);
+          setlatitudeSelected(selectedRow[4]);
+        }
+      }
+    });
+  }, [docityselected]);
+
+  const doChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setdocitySelected(e.target.value);
+  };
+
+  const doChangeSecondSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newSelectedValue = e.target.value;
+
+    fetchData().then((jsonData) => {
+      const selectedRow = jsonData.find((row: any[]) => row[2] === newSelectedValue);
+      if (selectedRow) {
+        setlongitudeSelected(selectedRow[3]);
+        setlatitudeSelected(selectedRow[4]);
+      }
+    });
+  };
     
     return(
         <SignuppageStyle>
@@ -103,9 +173,13 @@ const Signup = () => {
 
                 <AreadivStyle>
                     <PStyle>관할구역</PStyle>
-                    <div>
-                        <InputStyle />
-                    </div>
+                    <SelectStyle>
+                    <Selectbox
+                        docityselected={docityselected}
+                        doChange={doChange}
+                        docityfilteredOptions={docityfilteredOptions}
+                        doChangeSecondSelect={doChangeSecondSelect}/>
+                    </SelectStyle>
                 </AreadivStyle>
 
                 <PhonedivStyle>
