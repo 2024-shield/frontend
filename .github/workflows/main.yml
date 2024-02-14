@@ -1,17 +1,25 @@
-name: Automatically Deployment
+name: Your Workflow Name
+on: [push, pull_request]
 
-on:
-  push:
-    branches: [Add-Google-Map-API]
-
-jobs: 
-  build: 
-    runs-on: self-hosted
+jobs:
+  build:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3  
+    - uses: actions/checkout@v2
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14
 
-      - run: |
-           echo "VITE_GOOGLE_MAP_API_KEY=${{secrets.VITE_GOOGLE_MAP_API_KEY}}" >> .env
-      - run: cat /.env
-        # env:  
-        #  VITE_GOOGLE_MAP_API_KEY: ${{secrets.VITE_GOOGLE_MAP_API_KEY}}
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build
+      run: npm run build
+      env:
+        VITE_KEY: ${{ secrets.VITE_GOOGLE_MAP_API_KEY }}
+
+    - name: Test
+      run: npm run test
+      env:
+        VITE_KEY: ${{ secrets.VITE_GOOGLE_MAP_API_KEY }} 
