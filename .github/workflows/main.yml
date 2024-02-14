@@ -1,6 +1,8 @@
 name: Automatically Deployment
 
-on: [push]
+on:
+  push:
+    branches: [Add-Google-Map-API]
 
 jobs: 
   deployment: 
@@ -10,8 +12,7 @@ jobs:
       - uses: actions/setup-node@v3 
         with:
           node-version: '16'
-      - name: Setting .env
-        run: |
-           echo "VITE_GOOGLE_MAP_API_KEY =$VITE_GOOGLE_MAP_API_KEY" >> .env
-        env:  
-         VITE_GOOGLE_MAP_API_KEY: ${{secrets.VITE_GOOGLE_MAP_API_KEY}}
+      - run: |
+           echo "VITE_GOOGLE_MAP_API_KEY=${{secrets.VITE_GOOGLE_MAP_API_KEY}}" >> .env
+        # env:  
+        #  VITE_GOOGLE_MAP_API_KEY: ${{secrets.VITE_GOOGLE_MAP_API_KEY}}

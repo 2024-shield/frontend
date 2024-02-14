@@ -20,11 +20,13 @@ const MapStyle = styled.div`
 const Map: React.FC<MapProps> = ({ lat, lng }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapObjRef = useRef<google.maps.Map | null>(null);
-  const apiKey = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
+  //const apiKey = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
+  // const apiKey = VITE_GOOGLE_MAP_API_KEY
 
   useEffect(() => {
+    if (!window.google) {
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
+    script.src = `http://maps.googleapis.com/maps/api/js?libraries=geometry&key=${import.meta.env.VITE_GOOGLE_MAP_API_KEY}&callback=initMap`;
     script.async = true;
     // script.defer = true;
     document.body.appendChild(script);
@@ -36,10 +38,12 @@ const Map: React.FC<MapProps> = ({ lat, lng }) => {
         zoom: 13,
       });
     };
+    
 
     return () => {
       document.body.removeChild(script);
     };
+  }
 }, []);
 
 useEffect(() => {
