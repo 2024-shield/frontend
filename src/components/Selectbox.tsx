@@ -15,6 +15,7 @@ interface SelectboxProps {
 
 const SelectboxStyle = styled.div`
   height: 4vh;
+  margin: 1vh;
 `;
 
 const docityList: Option[] = [

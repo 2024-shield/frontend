@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const SigninpageStyle = styled.div`
     width: 100%;
-    height: 100%;
+    height: 100vh;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -28,10 +28,10 @@ const Signin = () => {
 
     return(
         <SigninpageStyle>
-            <img src={logoImage} width="50%" height="50%"/>
+            <img src={logoImage} width="50%"/>
             <Input props_placeholder='ID'/>
             <Input props_placeholder='Password'/>
-
+            
             <Button text="로그인" onClick={onSubmit}/>
             <hr />
             <Button text="회원가입" onClick={NavigateSignup}/>

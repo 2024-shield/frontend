@@ -3,11 +3,12 @@ import Header from "../components/Header";
 
 const ReportpageStyle = styled.div`
     width: 100%;
-    height: 100%;
+    height: 100vh;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    y-overflow: scroll;
 `
 
 

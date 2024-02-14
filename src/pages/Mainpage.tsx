@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import * as XLSX from 'xlsx';
+import { styled } from 'styled-components';
 import Header from '../components/Header';
 import Map from '../components/Map';
 import Selectbox from '../components/Selectbox';
@@ -8,6 +9,17 @@ interface Option {
   value: string;
   name: string;
 }
+
+const InfomationStyle = styled.div`
+  height: 100%;
+`
+
+const InfoTextStyle = styled.div`
+  height: 10vh;
+  border: 1px solid #101957;
+  padding: 10px 0px;
+  margin: 2vh;
+`
 
 
 const Main = () => {
@@ -75,6 +87,12 @@ const Main = () => {
               doChange={doChange}
               docityfilteredOptions={docityfilteredOptions}
               doChangeSecondSelect={doChangeSecondSelect}/>
+        <InfomationStyle>
+          <InfoTextStyle>
+
+          </InfoTextStyle>
+
+        </InfomationStyle>
         <div className='map'>
             <Map lat={latitudeselected} lng={longitudeselected} />
         </div>

@@ -14,7 +14,7 @@ interface MapProps {
 
 const MapStyle = styled.div`
     width: 100%;
-    height: 90vh;
+    height: 50%;
 `
 
 const Map: React.FC<MapProps> = ({ lat, lng }) => {
@@ -51,7 +51,7 @@ useEffect(() => {
 return(
     <>  
       <MapStyle>
-          <div ref={mapRef} style={{ width: '100%', height: '90vh' }}/>
+          <div ref={mapRef} style={{ width: '100%', height: '75vh' }}/>
       </MapStyle>
     </>
     );
