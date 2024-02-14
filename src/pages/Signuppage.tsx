@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import theme from "../styles/theme";
-import Input from '../components/Input';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import "../styles/style.css";
@@ -85,10 +83,10 @@ const Signup = () => {
         navigate("/")
     }
 
-    const [docityselected, setdocitySelected] = useState('Seoul');
+  const [docityselected, setdocitySelected] = useState('Seoul');
   const [docityfilteredOptions, docitysetFilteredOptions] = useState<Option[]>([]);
-  const [longitudeselected, setlongitudeSelected] = useState(127.0495556);
-  const [latitudeselected, setlatitudeSelected] = useState(37.514575);
+  // const [longitudeselected, setlongitudeSelected] = useState(127.0495556);
+  // const [latitudeselected, setlatitudeSelected] = useState(37.514575);
 
   const fetchData = async () => {
     try {
@@ -115,13 +113,13 @@ const Signup = () => {
 
       docitysetFilteredOptions(newFilteredOptions);
 
-      if (newFilteredOptions.length > 0) {
-        const selectedRow = jsonData.find((row: any[]) => row[2] === newFilteredOptions[0].value);
-        if (selectedRow) {
-          setlongitudeSelected(selectedRow[3]);
-          setlatitudeSelected(selectedRow[4]);
-        }
-      }
+      // if (newFilteredOptions.length > 0) {
+      //   const selectedRow = jsonData.find((row: any[]) => row[2] === newFilteredOptions[0].value);
+      //   if (selectedRow) {
+      //     setlongitudeSelected(selectedRow[3]);
+      //     setlatitudeSelected(selectedRow[4]);
+      //   }
+      // }
     });
   }, [docityselected]);
 
@@ -135,8 +133,8 @@ const Signup = () => {
     fetchData().then((jsonData) => {
       const selectedRow = jsonData.find((row: any[]) => row[2] === newSelectedValue);
       if (selectedRow) {
-        setlongitudeSelected(selectedRow[3]);
-        setlatitudeSelected(selectedRow[4]);
+        // setlongitudeSelected(selectedRow[3]);
+        // setlatitudeSelected(selectedRow[4]);
       }
     });
   };

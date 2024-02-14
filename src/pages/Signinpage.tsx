@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import theme from "../styles/theme";
 import logoImage from "../assets/SHIELD_Logo.png";
 import Input from '../components/Input';
 import Button from '../components/Button';
