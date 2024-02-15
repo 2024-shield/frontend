@@ -4,6 +4,8 @@ import { styled } from 'styled-components';
 import Header from '../components/Header';
 import Map from '../components/Map';
 import Selectbox from '../components/Selectbox';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleInfo, faFire } from "@fortawesome/free-solid-svg-icons";
 
 interface Option {
   value: string;
@@ -14,13 +16,24 @@ const InfomationStyle = styled.div`
   height: 100%;
 `
 
-const InfoTextStyle = styled.div`
+const InfoStyle = styled.div`
   height: 10vh;
-  border: 1px solid #101957;
+  border: 3px solid #4350A7;
   padding: 10px 0px;
   margin: 2vh;
+  display: flex;
+  align-items: center;
 `
 
+const H4Style = styled.h4`
+  color: #4350A7;
+  margin: 0px 0px 0px 10px;
+`
+
+const InfoTextStyle = styled.div`
+  display: flex;
+  margin-left: 20px;
+`
 
 const Main = () => {
   const [docityselected, setdocitySelected] = useState('Seoul');
@@ -87,12 +100,16 @@ const Main = () => {
               doChange={doChange}
               docityfilteredOptions={docityfilteredOptions}
               doChangeSecondSelect={doChangeSecondSelect}/>
-        <InfomationStyle>
-          <InfoTextStyle>
 
-          </InfoTextStyle>
+        <InfoStyle>
+            <FontAwesomeIcon icon={faCircleInfo} style={{color: "#4350A7"}} size='2xl' id="iconinfo"/>
+            
+            <InfoTextStyle>
+              <FontAwesomeIcon icon={faFire} style={{color: "#4350A7"}}  size='xl' id="iconfire"/>
+              <H4Style>클릭 시 화재 정보 확인 가능</H4Style>
+            </InfoTextStyle>
+        </InfoStyle>
 
-        </InfomationStyle>
         <div className='map'>
             <Map lat={latitudeselected} lng={longitudeselected} />
         </div>
