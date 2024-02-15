@@ -13,6 +13,26 @@ const SigninpageStyle = styled.div`
     align-items: center;
 `
 
+const InputboxStyle = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+`
+
+const ButtonboxStyle = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+`
+
+const InputButtonboxStyle = styled.div`
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+`
 
 const Signin = () => {
     const navigate = useNavigate();
@@ -28,12 +48,19 @@ const Signin = () => {
     return(
         <SigninpageStyle>
             <img src={logoImage} width="50%"/>
-            <Input props_placeholder='ID'/>
-            <Input props_placeholder='Password'/>
-            
-            <Button text="로그인" onClick={onSubmit}/>
-            <hr />
-            <Button text="회원가입" onClick={NavigateSignup}/>
+
+            <InputButtonboxStyle>
+                <InputboxStyle>
+                    <Input props_placeholder='ID'/>
+                    <Input props_placeholder='Password'/>
+                </InputboxStyle>
+                
+                <ButtonboxStyle>
+                    <Button text="로그인" onClick={onSubmit}/>
+                    <hr />
+                    <Button text="회원가입" onClick={NavigateSignup}/>
+                </ButtonboxStyle>
+            </InputButtonboxStyle>
         </SigninpageStyle>
     )
 }

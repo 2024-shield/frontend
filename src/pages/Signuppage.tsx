@@ -36,7 +36,7 @@ const H5Style = styled.h5`
 `
 
 const InputStyle = styled.input`
-    width: 360px;
+    width: 300px;
     height: 40px;
     padding-left: 10px;
     margin: 5px 0px;
@@ -56,7 +56,7 @@ const IDdivStyle = styled.div`
 `
 
 const InputButtonStyle = styled.div`
-    width: 360px;
+    width: 300px;
     height: 35px;
     display: flex;
     align-items: center;
@@ -70,7 +70,7 @@ const BelongdivStyle = styled.div`
 `
 
 const AreadivStyle = styled.div`
-  width: 100%;
+  width: 300px;
 `
 
 const PhonedivStyle = styled.div`
@@ -140,54 +140,54 @@ const Signup = () => {
   };
     
     return(
-        <SignuppageStyle>
-            <h3 id="page_title">회원가입</h3>
+      <SignuppageStyle>
+        <h3 id="page_title">회원가입</h3>
 
-            <InputboxStyle>
-              <NamedivStyle>
-                  <H5Style>이름</H5Style> 
+        <InputboxStyle>
+          <NamedivStyle>
+              <H5Style>이름</H5Style> 
+              <InputStyle/>
+          </NamedivStyle>
+
+          <IDdivStyle>
+              <H5Style>아이디</H5Style>
+              <InputButtonStyle>
                   <InputStyle/>
-              </NamedivStyle>
+                  <Button text="중복 확인" />
+              </InputButtonStyle>
+          </IDdivStyle>
 
-              <IDdivStyle>
-                  <H5Style>아이디</H5Style>
-                  <InputButtonStyle>
-                      <InputStyle/>
-                      <Button text="중복 확인" />
-                  </InputButtonStyle>
-              </IDdivStyle>
+          <PwdivStyle>
+              <H5Style>비밀번호</H5Style>
+              <InputStyle/>
+              <H5Style>비밀번호 확인</H5Style>
+              <InputStyle/>
+          </PwdivStyle>
 
-              <PwdivStyle>
-                  <H5Style>비밀번호</H5Style>
-                  <InputStyle/>
-                  <H5Style>비밀번호 확인</H5Style>
-                  <InputStyle/>
-              </PwdivStyle>
+          <BelongdivStyle>
+              <H5Style>소속</H5Style>
+              <InputStyle />
+          </BelongdivStyle>
 
-              <BelongdivStyle>
-                  <H5Style>소속</H5Style>
-                  <InputStyle />
-              </BelongdivStyle>
+          <AreadivStyle>
+              <H5Style>관할구역</H5Style>
+              <SelectStyle>
+              <Selectbox
+                  docityselected={docityselected}
+                  doChange={doChange}
+                  docityfilteredOptions={docityfilteredOptions}
+                  doChangeSecondSelect={doChangeSecondSelect}/>
+              </SelectStyle>
+          </AreadivStyle>
 
-              <AreadivStyle>
-                  <H5Style>관할구역</H5Style>
-                  <SelectStyle>
-                  <Selectbox
-                      docityselected={docityselected}
-                      doChange={doChange}
-                      docityfilteredOptions={docityfilteredOptions}
-                      doChangeSecondSelect={doChangeSecondSelect}/>
-                  </SelectStyle>
-              </AreadivStyle>
+          <PhonedivStyle>
+              <H5Style>연락처</H5Style>
+              <InputStyle />
+          </PhonedivStyle>
 
-              <PhonedivStyle>
-                  <H5Style>연락처</H5Style>
-                  <InputStyle />
-              </PhonedivStyle>
-
-              <Button text="가입하기" onClick={onSubmit}/>
-            </InputboxStyle>
-        </SignuppageStyle>
+          <Button text="가입하기" onClick={onSubmit}/>
+        </InputboxStyle>
+      </SignuppageStyle>
     )
 }
 
