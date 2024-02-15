@@ -12,10 +12,6 @@ interface Option {
   name: string;
 }
 
-const InfomationStyle = styled.div`
-  height: 100%;
-`
-
 const InfoStyle = styled.div`
   height: 10vh;
   border: 3px solid #4350A7;
