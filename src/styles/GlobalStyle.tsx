@@ -36,6 +36,10 @@ export const GlobalStyle = createGlobalStyle`
         background-color:  ${theme.colors.mainNavy};
     }
 
+    h4{
+        margin-top: 0px;
+    }
+
     button{
         padding: 10px;
     }

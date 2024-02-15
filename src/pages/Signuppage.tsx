@@ -30,7 +30,7 @@ const InputboxStyle = styled.div`
     justify-content: space-around;
 `
 
-const PStyle = styled.p`
+const H5Style = styled.h5`
     margin: 5px 0px;
     font-size: 13px;
 `
@@ -144,48 +144,48 @@ const Signup = () => {
             <h3 id="page_title">회원가입</h3>
 
             <InputboxStyle>
-                <NamedivStyle>
-                    <PStyle>이름</PStyle> 
-                    <InputStyle/>
-                </NamedivStyle>
+              <NamedivStyle>
+                  <H5Style>이름</H5Style> 
+                  <InputStyle/>
+              </NamedivStyle>
 
-                <IDdivStyle>
-                    <PStyle>아이디</PStyle>
-                    <InputButtonStyle>
-                        <InputStyle/>
-                        <Button text="중복 확인" />
-                    </InputButtonStyle>
-                </IDdivStyle>
+              <IDdivStyle>
+                  <H5Style>아이디</H5Style>
+                  <InputButtonStyle>
+                      <InputStyle/>
+                      <Button text="중복 확인" />
+                  </InputButtonStyle>
+              </IDdivStyle>
 
-                <PwdivStyle>
-                    <PStyle>비밀번호</PStyle>
-                    <InputStyle/>
-                    <PStyle>비밀번호 확인</PStyle>
-                    <InputStyle/>
-                </PwdivStyle>
+              <PwdivStyle>
+                  <H5Style>비밀번호</H5Style>
+                  <InputStyle/>
+                  <H5Style>비밀번호 확인</H5Style>
+                  <InputStyle/>
+              </PwdivStyle>
 
-                <BelongdivStyle>
-                    <PStyle>소속</PStyle>
-                    <InputStyle />
-                </BelongdivStyle>
+              <BelongdivStyle>
+                  <H5Style>소속</H5Style>
+                  <InputStyle />
+              </BelongdivStyle>
 
-                <AreadivStyle>
-                    <PStyle>관할구역</PStyle>
-                    <SelectStyle>
-                    <Selectbox
-                        docityselected={docityselected}
-                        doChange={doChange}
-                        docityfilteredOptions={docityfilteredOptions}
-                        doChangeSecondSelect={doChangeSecondSelect}/>
-                    </SelectStyle>
-                </AreadivStyle>
+              <AreadivStyle>
+                  <H5Style>관할구역</H5Style>
+                  <SelectStyle>
+                  <Selectbox
+                      docityselected={docityselected}
+                      doChange={doChange}
+                      docityfilteredOptions={docityfilteredOptions}
+                      doChangeSecondSelect={doChangeSecondSelect}/>
+                  </SelectStyle>
+              </AreadivStyle>
 
-                <PhonedivStyle>
-                    <PStyle>연락처</PStyle>
-                    <InputStyle />
-                </PhonedivStyle>
+              <PhonedivStyle>
+                  <H5Style>연락처</H5Style>
+                  <InputStyle />
+              </PhonedivStyle>
 
-                <Button text="가입하기" onClick={onSubmit}/>
+              <Button text="가입하기" onClick={onSubmit}/>
             </InputboxStyle>
         </SignuppageStyle>
     )

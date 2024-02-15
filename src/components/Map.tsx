@@ -34,6 +34,8 @@ const Map: React.FC<MapProps> = ({ lat, lng }) => {
     window.initMap = () => {
       mapObjRef.current = new window.google.maps.Map(mapRef.current!, {
         //center: { lat: 37.5665, lng: 126.9780 },
+        //lat: 37.545180, lng: 126.964861 >> 숙대입구
+        //lat: 
         center: { lat: lat, lng: lng },
         zoom: 13,
       });

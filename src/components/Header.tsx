@@ -29,8 +29,8 @@ const Header = () => {
                 </div>
             </Link>
 
-            <Link to="/report">
-                <div className="report">
+            <Link to="/reportlist">
+                <div className="reportlist">
                     <FontAwesomeIcon icon={faFile} /> 보고서
                 </div>
             </Link>
