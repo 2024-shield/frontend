@@ -38,3 +38,8 @@ select{
 #iconinfo{
     padding: 10px;
 }
+
+#short{
+    width: 50%;
+    border-radius: 0px;
+}

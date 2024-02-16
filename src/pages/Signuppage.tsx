@@ -17,7 +17,7 @@ interface Option {
 const SignuppageStyle = styled.div`
     width: 100%;
     height: 100vh;
-    padding: 10px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -77,6 +77,12 @@ const AreadivStyle = styled.div`
 const PhonedivStyle = styled.div`
 `
 
+const TitleStyle = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
 const Signup = () => {
     const navigate = useNavigate();
     const [name, setName] = useState<string>("");
@@ -86,6 +92,8 @@ const Signup = () => {
     const [department, setDepartment] = useState<string>("");
     const [area, setArea] = useState<string>("서울특별시 용산구");
     const [phonenumber, setPhonenumber] = useState<string>("");
+
+    const [IdConfirm, setIdConfirm] = useState<boolean>(true);
     
     const user = {
       name: name/* 이름 입력 값 */,
@@ -107,6 +115,18 @@ const Signup = () => {
         .catch(error => {
             console.error('Error:', error);
         });
+    }
+
+    const idCheck = () => {
+      axios.get(`http://localhost:8080/api/check/id?userId=${id}`)
+      .then(response => {
+        if(!response.data){
+          setIdConfirm(false);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
     }
 
   const [docityselected, setdocitySelected] = useState('Seoul');
@@ -165,7 +185,8 @@ const Signup = () => {
     });
   };
     
-    return(
+  return(
+    <div className="Signuppage">
       <SignuppageStyle>
         <h3 id="page_title">회원가입</h3>
 
@@ -176,10 +197,13 @@ const Signup = () => {
           </NamedivStyle>
 
           <IDdivStyle>
-              <H5Style>아이디</H5Style>
+              <TitleStyle>
+                <H5Style>아이디</H5Style>
+                {!IdConfirm && <h6>아이디가 중복입니다</h6>}  
+              </TitleStyle>
               <InputButtonStyle>
                   <InputStyle onChange={e => setId(e.target.value)} type='text'/>
-                  <Button text="중복 확인" />
+                  <Button text="중복 확인" length="short" onClick={idCheck} />
               </InputButtonStyle>
           </IDdivStyle>
 
@@ -211,10 +235,11 @@ const Signup = () => {
               <InputStyle onChange={e => setPhonenumber(e.target.value)}/>
           </PhonedivStyle>
 
-          <Button text="가입하기" onClick={onSignup}/>n
+          <Button text="가입하기" onClick={onSignup}/>
         </InputboxStyle>
       </SignuppageStyle>
-    )
+    </div>
+  )
 }
 
 export default Signup;

@@ -4,6 +4,7 @@ import { ReactNode } from 'react';;
 
 interface ButtonProps{
     text: ReactNode;
+    length?: string;
 	onClick?: () => void;
 }
 
@@ -16,9 +17,9 @@ const StyledButton = styled.button`
     border: 1px solid ${theme.colors.mainNavy};
 `
 
-const Button = ({ text, onClick }: ButtonProps) => {
+const Button = ({ text, length="long", onClick }: ButtonProps) => {
     return(
-        <StyledButton onClick={onClick}>
+        <StyledButton onClick={onClick} id={length}>
             {text}
         </StyledButton>
     )

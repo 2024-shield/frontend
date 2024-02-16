@@ -40,6 +40,10 @@ export const GlobalStyle = createGlobalStyle`
         margin-top: 0px;
     }
 
+    h6{
+        margin: 0px;
+    }
+
     button{
         padding: 10px;
     }

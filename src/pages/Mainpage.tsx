@@ -35,8 +35,8 @@ const InfoTextStyle = styled.div`
 const Main = () => {
   const [docityselected, setdocitySelected] = useState('Seoul');
   const [docityfilteredOptions, docitysetFilteredOptions] = useState<Option[]>([]);
-  const [longitudeselected, setlongitudeSelected] = useState(127.0495556);
-  const [latitudeselected, setlatitudeSelected] = useState(37.514575);
+  const [longitudeselected, setlongitudeSelected] = useState(126.9712);
+  const [latitudeselected, setlatitudeSelected] = useState(37.5494);
 
   const fetchData = async () => {
     try {
@@ -79,7 +79,7 @@ const Main = () => {
 
   const doChangeSecondSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newSelectedValue = e.target.value;
-
+  
     fetchData().then((jsonData) => {
       const selectedRow = jsonData.find((row: any[]) => row[2] === newSelectedValue);
       if (selectedRow) {

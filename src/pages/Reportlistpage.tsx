@@ -8,7 +8,7 @@ const ReportlistpageStyle = styled.div`
     padding: 20px;
     display: flex;
     flex-direction: column;
-    y-overflow: scroll;
+    /* overflow-y: scroll; */
 `
 
 const SearchboxStyle = styled.div`
