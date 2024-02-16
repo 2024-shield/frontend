@@ -6,6 +6,7 @@ import Reportdetailpage from "./pages/Reportdetailpage";
 import Reportlistpage from "./pages/Reportlistpage";
 import Reportwritepage from "./pages/Reportwritepage";
 import Mypage from "./pages/Mypage";
+import Changemypage from "./pages/Changemypage";
 
 const Router = () => {
     return(
@@ -19,6 +20,7 @@ const Router = () => {
                     <Route path="/report/:id" element={<Reportdetailpage />} />
                     <Route path="/reportwrite" element={<Reportwritepage />} />
                     <Route path="/my" element={<Mypage />} />
+                    <Route path="/changemy" element={<Changemypage />} />
                     {/* <Route path="signup" element={<Signup />} /> */}
                 </Routes>
             </BrowserRouter>

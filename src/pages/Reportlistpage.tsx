@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Header from "../components/Header";
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Button from "../components/Button";
+import { Link, useNavigate } from 'react-router-dom';
 
 const ReportlistpageStyle = styled.div`
     width: 100%;
@@ -12,13 +12,21 @@ const ReportlistpageStyle = styled.div`
 `
 
 const SearchboxStyle = styled.div`
-    height: 15vh;
+    height: 10vh;
+`
+
+const ButtonboxStyle = styled.div`
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
 `
 
 const ListboxStyle = styled.div`
     width: 100%;
-    height: 64vh;
+    height: 62vh;
     overflow-y: scroll;
+    margin-top: 2vh;
 `
 
 const ReportListStyle = styled.div`
@@ -32,6 +40,13 @@ const ReportListStyle = styled.div`
 `
 
 const Reportlist = () => {
+
+    const navigate = useNavigate();
+
+    const onSubmit = () => {
+        navigate("/reportwrite")
+    }
+    
     const reports = 
         [
             { id: 1, title: '보고서 1'},        
@@ -52,6 +67,11 @@ const Reportlist = () => {
                     <h4>기간 검색</h4>
 
                 </SearchboxStyle>
+
+                <ButtonboxStyle>
+                    <Button text="보고서 작성하기" onClick={onSubmit} />
+                </ButtonboxStyle>
+
                 <ListboxStyle>
                 {reports.map((report) => (
                     <Link to={`/report/${report.id}`}>

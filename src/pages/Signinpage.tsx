@@ -24,7 +24,6 @@ const InputStyle = styled.input`
     border-radius: 3px;
 `
 
-
 const Signin = () => {
     const navigate = useNavigate();
 

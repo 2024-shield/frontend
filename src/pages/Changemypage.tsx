@@ -1,20 +1,17 @@
 import styled from 'styled-components';
-import Button from '../components/Button';
-import { useNavigate } from 'react-router-dom';
-import "../styles/style.css";
+import Header from "../components/Header";
 import Selectbox from '../components/Selectbox';
-import { useEffect, useState } from 'react';
+import Button from '../components/Button';
 import * as XLSX from 'xlsx';
-import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 interface Option {
     value: string;
     name: string;
   }
-  
 
-const SignuppageStyle = styled.div`
+const ChangemypageStyle = styled.div`
     width: 100%;
     height: 100vh;
     padding: 10px;
@@ -67,7 +64,7 @@ const InputButtonStyle = styled.div`
 const PwdivStyle = styled.div`
 `
 
-const DepartmentdivStyle = styled.div`
+const BelongdivStyle = styled.div`
 `
 
 const AreadivStyle = styled.div`
@@ -77,39 +74,14 @@ const AreadivStyle = styled.div`
 const PhonedivStyle = styled.div`
 `
 
-const Signup = () => {
+const Changemy = () => {
     const navigate = useNavigate();
-    const [name, setName] = useState<string>("");
-    const [id, setId] = useState<string>("");
-    const [password, setPassword] = useState<string>("");
-    const [passwordcheck, setPasswordcheck] = useState<string>("");
-    const [department, setDepartment] = useState<string>("");
-    const [area, setArea] = useState<string>("서울특별시 용산구");
-    const [phonenumber, setPhonenumber] = useState<string>("");
-    
-    const user = {
-      name: name/* 이름 입력 값 */,
-      userId: id/* 아이디 입력 값 */,
-      password: password/* 비밀번호 입력 값 */,
-      passwordCheck: passwordcheck,
-      department: department/* 소속 입력 값 */,
-      area: area/* 관할구역 선택 값 */,
-      phoneNo: phonenumber/* 연락처 입력 값 */
-  };
 
-    const onSignup = () => {
-        // navigate("/")
-        axios.post('http://localhost:8080/api/join', user)
-        .then(response => {
-            console.log(response.data);
-            navigate("/") // 회원가입 후 페이지 이동
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+    const onChangemy = () => {
+        navigate("/changemy")
     }
 
-  const [docityselected, setdocitySelected] = useState('Seoul');
+    const [docityselected, setdocitySelected] = useState('Seoul');
   const [docityfilteredOptions, docitysetFilteredOptions] = useState<Option[]>([]);
   // const [longitudeselected, setlongitudeSelected] = useState(127.0495556);
   // const [latitudeselected, setlatitudeSelected] = useState(37.514575);
@@ -164,36 +136,36 @@ const Signup = () => {
       }
     });
   };
-    
+
     return(
-      <SignuppageStyle>
-        <h3 id="page_title">회원가입</h3>
+        <ChangemypageStyle>
+        <h3 id="page_title">내 정보 수정하기</h3>
 
         <InputboxStyle>
           <NamedivStyle>
               <H5Style>이름</H5Style> 
-              <InputStyle onChange={e => setName(e.target.value)}/>
+              <InputStyle/>
           </NamedivStyle>
 
           <IDdivStyle>
               <H5Style>아이디</H5Style>
               <InputButtonStyle>
-                  <InputStyle onChange={e => setId(e.target.value)} type='text'/>
-                  <Button text="중복 확인" />
+                  <InputStyle/>
+                  흠냐
               </InputButtonStyle>
           </IDdivStyle>
 
           <PwdivStyle>
               <H5Style>비밀번호</H5Style>
-              <InputStyle onChange={e => setPassword(e.target.value)} type='password'/>
+              <InputStyle/>
               <H5Style>비밀번호 확인</H5Style>
-              <InputStyle onChange={e => setPasswordcheck(e.target.value)} type='password'/>
+              <InputStyle/>
           </PwdivStyle>
 
-          <DepartmentdivStyle>
+          <BelongdivStyle>
               <H5Style>소속</H5Style>
-              <InputStyle onChange={e => setDepartment(e.target.value)}/>
-          </DepartmentdivStyle>
+              <InputStyle />
+          </BelongdivStyle>
 
           <AreadivStyle>
               <H5Style>관할구역</H5Style>
@@ -208,13 +180,13 @@ const Signup = () => {
 
           <PhonedivStyle>
               <H5Style>연락처</H5Style>
-              <InputStyle onChange={e => setPhonenumber(e.target.value)}/>
+              <InputStyle />
           </PhonedivStyle>
 
-          <Button text="가입하기" onClick={onSignup}/>n
+          <Button text="완료하기" onClick={onChangemy}/>
         </InputboxStyle>
-      </SignuppageStyle>
+      </ChangemypageStyle>
     )
 }
 
-export default Signup;
+export default Changemy;
