@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import logoImage from "../assets/SHIELD_Logo.png";
-import Input from '../components/Input';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -19,9 +18,23 @@ const InputStyle = styled.input`
     width: 300px;
     height: 40px;
     padding-left: 10px;
-    margin: 5px 0px;
+    margin: 10px 0px;
     border: 1px solid navy;
     border-radius: 3px;
+`
+
+const InputDivStyle = styled.div`
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+`
+
+const ButtonDivStyle = styled.div`
+    width: 300px;
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `
 
 const Signin = () => {
@@ -54,12 +67,16 @@ const Signin = () => {
     return(
         <SigninpageStyle>
             <img src={logoImage} width="50%"/>
-            <InputStyle onChange={e => setId(e.target.value)} type='text' placeholder="ID"/>
-            <InputStyle onChange={e => setPassword(e.target.value)} type='password' placeholder="Password"/>
+            <InputDivStyle>
+                <InputStyle onChange={e => setId(e.target.value)} type='text' placeholder="ID"/>
+                <InputStyle onChange={e => setPassword(e.target.value)} type='password' placeholder="Password"/>
+            </InputDivStyle>
             
-            <Button text="로그인" onClick={onSignin}/>
-            <hr />
-            <Button text="회원가입" onClick={NavigateSignup}/>
+            <ButtonDivStyle>
+                <Button text="로그인" onClick={onSignin}/>
+                <hr />
+                <Button text="회원가입" onClick={NavigateSignup}/>
+            </ButtonDivStyle>
         </SigninpageStyle>
     )
 }

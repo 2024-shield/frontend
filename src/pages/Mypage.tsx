@@ -6,7 +6,7 @@ import Header from '../components/Header';
 const ChangemypageStyle = styled.div`
     width: 100%;
     height: 94vh;
-    padding: 10px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

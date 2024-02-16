@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import Header from "../components/Header";
 import Selectbox from '../components/Selectbox';
 import Button from '../components/Button';
 import * as XLSX from 'xlsx';
