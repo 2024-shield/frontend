@@ -17,7 +17,7 @@ const StyledHeader = styled.header`
     align-items: center;
     padding: 1px 20px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-    z-index: 100; /* 다른 요소 위에 나타나도록 높은 z-index 값을 설정 */
+    z-index: 0;
 `
 
 const Header = () => {

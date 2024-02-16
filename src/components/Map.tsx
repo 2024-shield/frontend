@@ -1,5 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import Modal from './Modal';
 
 declare global {
   interface Window {
@@ -22,12 +23,35 @@ const Map: React.FC<MapProps> = ({ lat, lng }) => {
   const mapObjRef = useRef<google.maps.Map | null>(null);
   const markersRef = useRef<google.maps.Marker[]>([]);
 
+  const [isOpen, setIsOpen] = useState(false);
+
   useEffect(() => {
-    if (!window.google) {
-      const script = document.createElement('script');
-      script.src = `http://maps.googleapis.com/maps/api/js?libraries=geometry&key=${import.meta.env.VITE_GOOGLE_MAP_API_KEY}&callback=initMap`;
-      script.async = true;
+    // 마커 클릭 이벤트를 감지합니다.
+    const markerClickEvent = (event: Event) => {
+      const customEvent = event as CustomEvent<string>;  // 이벤트를 CustomEvent로 타입 캐스팅합니다.
+      if (customEvent.detail === 'marker1' || customEvent.detail === 'marker2') {
+        setIsOpen(true);
+      }
+    };
+    
+    window.addEventListener('markerClick', markerClickEvent);
+
+    return () => {
+      window.removeEventListener('markerClick', markerClickEvent);
+    };
+  }, []);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = `http://maps.googleapis.com/maps/api/js?libraries=geometry&key=${import.meta.env.VITE_GOOGLE_MAP_API_KEY}&callback=initMap`;
+    script.async = true;
+    
+    // 이미 동일한 스크립트가 로드되었는지 확인합니다.
+    const existingScript = document.querySelector(`script[src="${script.src}"]`);
+    if (!existingScript) {
       document.body.appendChild(script);
+    }
+
 
       window.initMap = () => {
         const mapOptions = {
@@ -40,13 +64,13 @@ const Map: React.FC<MapProps> = ({ lat, lng }) => {
         // 첫 번째 위치에 마커를 추가합니다.
         const marker1 = new window.google.maps.Marker({
           position: { lat: 37.5455, lng: 126.9613 },
-          title: "Cam 1",
+          title: "1",
         });
 
         // 두 번째 위치에 마커를 추가합니다.
         const marker2 = new window.google.maps.Marker({
           position: { lat: 37.5526, lng: 126.9864 },
-          title: "Cam 2",
+          title: "2",
         });
 
         // 마커를 참조에 저장합니다.
@@ -56,15 +80,14 @@ const Map: React.FC<MapProps> = ({ lat, lng }) => {
         markersRef.current.forEach(marker => marker.setMap(mapObjRef.current));
 
         marker1.addListener("click", () => {
-          // 여기서 모달 창을 띄우는 코드를 작성하면 됩니다.
-          alert("First location clicked");
+          // 커스텀 이벤트를 발생시킵니다.
+          window.dispatchEvent(new CustomEvent('markerClick', { detail: 'marker1' }));
         });
-      
+
         marker2.addListener("click", () => {
-          // 여기서 모달 창을 띄우는 코드를 작성하면 됩니다.
-          alert("Second location clicked");
+          // 커스텀 이벤트를 발생시킵니다.
+          window.dispatchEvent(new CustomEvent('markerClick', { detail: 'marker2' }));
         });
-      };
 
       return () => {
         document.body.removeChild(script);
@@ -87,6 +110,14 @@ const Map: React.FC<MapProps> = ({ lat, lng }) => {
       <MapStyle>
         <div ref={mapRef} style={{ width: '100%', height: '75vh' }}/>
       </MapStyle>
+
+      {isOpen && (
+        <Modal 
+          camnumber='1'
+          onClick={() => setIsOpen(false)} 
+          
+          />
+      )}
     </>
   );
 };
