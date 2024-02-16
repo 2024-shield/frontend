@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 interface InputProps{
-    props_placeholder: string
+    props_placeholder: string,
+    props_type: string,
 }
 
 const StyledInput = styled.input`
@@ -13,9 +14,11 @@ const StyledInput = styled.input`
     border-radius: 3px;
 `
 
-const Input = ({ props_placeholder }: InputProps) => {
+const Input = ({ props_placeholder, props_type }: InputProps) => {
     return(
-        <StyledInput placeholder={props_placeholder} />
+        <StyledInput 
+            placeholder={props_placeholder} 
+            type={props_type}/>
     )
 }
 

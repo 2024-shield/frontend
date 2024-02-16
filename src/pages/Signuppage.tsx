@@ -5,6 +5,7 @@ import "../styles/style.css";
 import Selectbox from '../components/Selectbox';
 import { useEffect, useState } from 'react';
 import * as XLSX from 'xlsx';
+import axios from 'axios';
 
 
 interface Option {
@@ -36,7 +37,7 @@ const H5Style = styled.h5`
 `
 
 const InputStyle = styled.input`
-    width: 360px;
+    width: 300px;
     height: 40px;
     padding-left: 10px;
     margin: 5px 0px;
@@ -56,7 +57,7 @@ const IDdivStyle = styled.div`
 `
 
 const InputButtonStyle = styled.div`
-    width: 360px;
+    width: 300px;
     height: 35px;
     display: flex;
     align-items: center;
@@ -66,11 +67,11 @@ const InputButtonStyle = styled.div`
 const PwdivStyle = styled.div`
 `
 
-const BelongdivStyle = styled.div`
+const DepartmentdivStyle = styled.div`
 `
 
 const AreadivStyle = styled.div`
-  width: 100%;
+  width: 300px;
 `
 
 const PhonedivStyle = styled.div`
@@ -78,9 +79,34 @@ const PhonedivStyle = styled.div`
 
 const Signup = () => {
     const navigate = useNavigate();
+    const [name, setName] = useState<string>("");
+    const [id, setId] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [passwordcheck, setPasswordcheck] = useState<string>("");
+    const [department, setDepartment] = useState<string>("");
+    const [area, setArea] = useState<string>("서울특별시 용산구");
+    const [phonenumber, setPhonenumber] = useState<string>("");
+    
+    const user = {
+      name: name/* 이름 입력 값 */,
+      userId: id/* 아이디 입력 값 */,
+      password: password/* 비밀번호 입력 값 */,
+      passwordCheck: passwordcheck,
+      department: department/* 소속 입력 값 */,
+      area: area/* 관할구역 선택 값 */,
+      phoneNo: phonenumber/* 연락처 입력 값 */
+  };
 
-    const onSubmit = () => {
-        navigate("/")
+    const onSignup = () => {
+        // navigate("/")
+        axios.post('http://localhost:8080/api/join', user)
+        .then(response => {
+            console.log(response.data);
+            navigate("/") // 회원가입 후 페이지 이동
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 
   const [docityselected, setdocitySelected] = useState('Seoul');
@@ -140,54 +166,54 @@ const Signup = () => {
   };
     
     return(
-        <SignuppageStyle>
-            <h3 id="page_title">회원가입</h3>
+      <SignuppageStyle>
+        <h3 id="page_title">회원가입</h3>
 
-            <InputboxStyle>
-              <NamedivStyle>
-                  <H5Style>이름</H5Style> 
-                  <InputStyle/>
-              </NamedivStyle>
+        <InputboxStyle>
+          <NamedivStyle>
+              <H5Style>이름</H5Style> 
+              <InputStyle onChange={e => setName(e.target.value)}/>
+          </NamedivStyle>
 
-              <IDdivStyle>
-                  <H5Style>아이디</H5Style>
-                  <InputButtonStyle>
-                      <InputStyle/>
-                      <Button text="중복 확인" />
-                  </InputButtonStyle>
-              </IDdivStyle>
+          <IDdivStyle>
+              <H5Style>아이디</H5Style>
+              <InputButtonStyle>
+                  <InputStyle onChange={e => setId(e.target.value)} type='text'/>
+                  <Button text="중복 확인" />
+              </InputButtonStyle>
+          </IDdivStyle>
 
-              <PwdivStyle>
-                  <H5Style>비밀번호</H5Style>
-                  <InputStyle/>
-                  <H5Style>비밀번호 확인</H5Style>
-                  <InputStyle/>
-              </PwdivStyle>
+          <PwdivStyle>
+              <H5Style>비밀번호</H5Style>
+              <InputStyle onChange={e => setPassword(e.target.value)} type='password'/>
+              <H5Style>비밀번호 확인</H5Style>
+              <InputStyle onChange={e => setPasswordcheck(e.target.value)} type='password'/>
+          </PwdivStyle>
 
-              <BelongdivStyle>
-                  <H5Style>소속</H5Style>
-                  <InputStyle />
-              </BelongdivStyle>
+          <DepartmentdivStyle>
+              <H5Style>소속</H5Style>
+              <InputStyle onChange={e => setDepartment(e.target.value)}/>
+          </DepartmentdivStyle>
 
-              <AreadivStyle>
-                  <H5Style>관할구역</H5Style>
-                  <SelectStyle>
-                  <Selectbox
-                      docityselected={docityselected}
-                      doChange={doChange}
-                      docityfilteredOptions={docityfilteredOptions}
-                      doChangeSecondSelect={doChangeSecondSelect}/>
-                  </SelectStyle>
-              </AreadivStyle>
+          <AreadivStyle>
+              <H5Style>관할구역</H5Style>
+              <SelectStyle>
+              <Selectbox
+                  docityselected={docityselected}
+                  doChange={doChange}
+                  docityfilteredOptions={docityfilteredOptions}
+                  doChangeSecondSelect={doChangeSecondSelect}/>
+              </SelectStyle>
+          </AreadivStyle>
 
-              <PhonedivStyle>
-                  <H5Style>연락처</H5Style>
-                  <InputStyle />
-              </PhonedivStyle>
+          <PhonedivStyle>
+              <H5Style>연락처</H5Style>
+              <InputStyle onChange={e => setPhonenumber(e.target.value)}/>
+          </PhonedivStyle>
 
-              <Button text="가입하기" onClick={onSubmit}/>
-            </InputboxStyle>
-        </SignuppageStyle>
+          <Button text="가입하기" onClick={onSignup}/>
+        </InputboxStyle>
+      </SignuppageStyle>
     )
 }
 
