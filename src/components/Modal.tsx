@@ -1,8 +1,10 @@
 import { styled } from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleInfo, faClose } from "@fortawesome/free-solid-svg-icons";
 
 interface ModalProps{
-    // position: {};
-    camnumber: string;
+    title: string | null | undefined;
+    latlng: google.maps.LatLng | null | undefined;
     onClick? : () => void;
 }
 
@@ -28,28 +30,46 @@ const ModalBackGround = styled.div`
 `;
 
 const ModalContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border-radius: 5px;
-  padding: 30px 0px;
-  border: 1px solid white;
-  background-color: white;
-  position: relative;
-  z-index: 25;
-  width: 300px;
-//   height: 50vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    padding: 30px 0px;
+    border: 1px solid white;
+    background-color: white;
+    position: relative;
+    z-index: 25;
+    width: 360px;
+    height: 40vh;
 `;
 
+const CloseButtonStyle = styled.div`
+    display: flex;
 
-const Modal = ({ camnumber, onClick }: ModalProps) =>{
+    :hover{
+        cursor: pointer;
+    }
+`
+
+const InfoContainerStyle = styled.div`
+
+`
+
+
+const Modal = ({ title, latlng, onClick }: ModalProps) =>{
   return (
     <ModalWrap>
         <ModalBackGround onClick={onClick} />
         <ModalContainer>
-            <button onClick={onClick}>닫기</button>
-            여기는 {camnumber}
+            <CloseButtonStyle>
+                <FontAwesomeIcon icon={faClose} onClick={onClick}/>
+            </CloseButtonStyle>
+
+            <InfoContainerStyle>
+                여기는 {title && (<h4>{title}</h4>)}
+                {latlng && (
+                    <p>위도: {latlng.lat()}, 경도: {latlng.lng()}</p>
+                )}
+            </InfoContainerStyle>
         </ModalContainer>
     </ModalWrap>
   );

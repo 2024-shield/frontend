@@ -24,6 +24,9 @@ const Map: React.FC<MapProps> = ({ lat, lng }) => {
   const markersRef = useRef<google.maps.Marker[]>([]);
 
   const [isOpen, setIsOpen] = useState(false);
+  const [markerPosition, setMarkerPosition] = useState<google.maps.LatLng | null | undefined>(null);
+  const [markerTitle, setMarkerTitle] = useState<string | null | undefined>(null);
+
 
   useEffect(() => {
     // 마커 클릭 이벤트를 감지합니다.
@@ -60,17 +63,16 @@ const Map: React.FC<MapProps> = ({ lat, lng }) => {
         };
 
         mapObjRef.current = new window.google.maps.Map(mapRef.current!, mapOptions);
-
         // 첫 번째 위치에 마커를 추가합니다.
         const marker1 = new window.google.maps.Marker({
           position: { lat: 37.5455, lng: 126.9613 },
-          title: "1",
+          title: "서울특별시 용산구 효창원로 177-18 <효창공원>",
         });
 
         // 두 번째 위치에 마커를 추가합니다.
         const marker2 = new window.google.maps.Marker({
           position: { lat: 37.5526, lng: 126.9864 },
-          title: "2",
+          title: "서울특별시 중구 삼일대로 231 <남산공원>",
         });
 
         // 마커를 참조에 저장합니다.
@@ -80,12 +82,14 @@ const Map: React.FC<MapProps> = ({ lat, lng }) => {
         markersRef.current.forEach(marker => marker.setMap(mapObjRef.current));
 
         marker1.addListener("click", () => {
-          // 커스텀 이벤트를 발생시킵니다.
+          setMarkerPosition(marker1.getPosition());
+          setMarkerTitle(marker1.getTitle());
           window.dispatchEvent(new CustomEvent('markerClick', { detail: 'marker1' }));
         });
-
+        
         marker2.addListener("click", () => {
-          // 커스텀 이벤트를 발생시킵니다.
+          setMarkerPosition(marker2.getPosition());
+          setMarkerTitle(marker2.getTitle());
           window.dispatchEvent(new CustomEvent('markerClick', { detail: 'marker2' }));
         });
 
@@ -112,10 +116,10 @@ const Map: React.FC<MapProps> = ({ lat, lng }) => {
       </MapStyle>
 
       {isOpen && (
-        <Modal 
-          camnumber='1'
+        <Modal
+          title={markerTitle}
+          latlng={markerPosition}
           onClick={() => setIsOpen(false)} 
-          
           />
       )}
     </>
