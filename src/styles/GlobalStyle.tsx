@@ -40,7 +40,7 @@ export const GlobalStyle = createGlobalStyle`
         margin-top: 0px;
     }
 
-    h6{
+    h5, h6{
         margin: 0px;
     }
 

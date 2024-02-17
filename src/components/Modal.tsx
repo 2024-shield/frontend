@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo, faClose } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
 
 interface ModalProps{
     title: string | null | undefined;
@@ -33,7 +34,7 @@ const ModalContainer = styled.div`
     display: flex;
     flex-direction: column;
     border-radius: 5px;
-    padding: 30px 0px;
+    padding: 30px 30px;
     border: 1px solid white;
     background-color: white;
     position: relative;
@@ -44,6 +45,7 @@ const ModalContainer = styled.div`
 
 const CloseButtonStyle = styled.div`
     display: flex;
+    justify-content: flex-end;
 
     :hover{
         cursor: pointer;
@@ -54,8 +56,35 @@ const InfoContainerStyle = styled.div`
 
 `
 
+const WeatherContainerStyle = styled.div`
+    
+`
+
+const WeatherDivStyle = styled.div`
+    padding: 15px 0px 0px 0px;
+`
+
 
 const Modal = ({ title, latlng, onClick }: ModalProps) =>{
+    const [weatherData, setWeatherData] = useState<any>(null);
+  
+    useEffect(() => {
+        if(latlng){
+        //onecall?lat=${latlng.lat()}&lon=${latlng.lng()}&exclude=current&appid=${import.meta.env.VITE_WEATHER_API_KEY}`
+            fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latlng.lat()}&lon=${latlng.lng()}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`)
+                .then(response => response.json())
+                .then(data => setWeatherData(data))
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+        }
+    }, [latlng]);
+
+    const getWindDirection = (deg: number) => {
+        const directions = ['북', '북동', '동', '남동', '남', '남서', '서', '북서'];
+        const value = Math.floor((deg + 22.5) / 45);
+        return directions[value % 8];
+     };
+    
   return (
     <ModalWrap>
         <ModalBackGround onClick={onClick} />
@@ -65,9 +94,18 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
             </CloseButtonStyle>
 
             <InfoContainerStyle>
-                여기는 {title && (<h4>{title}</h4>)}
+                {title && (<h5>{title}</h5>)}
                 {latlng && (
-                    <p>위도: {latlng.lat()}, 경도: {latlng.lng()}</p>
+                    <h5>위도: {latlng.lat()}, 경도: {latlng.lng()}</h5>
+                )}
+
+                {weatherData && (
+                    <WeatherContainerStyle>
+                        <WeatherDivStyle>날씨 정보 : {weatherData.weather[0].main}</WeatherDivStyle>
+                        <WeatherDivStyle>습도 : {weatherData.main.humidity} %</WeatherDivStyle>
+                        <WeatherDivStyle>풍향 : {getWindDirection(weatherData.wind.deg)}</WeatherDivStyle>
+                        <WeatherDivStyle>풍속 : {weatherData.wind.speed} m/s</WeatherDivStyle>
+                    </WeatherContainerStyle>
                 )}
             </InfoContainerStyle>
         </ModalContainer>

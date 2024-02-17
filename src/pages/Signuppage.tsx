@@ -120,9 +120,7 @@ const Signup = () => {
     const idCheck = () => {
       axios.get(`http://localhost:8080/api/check/id?userId=${id}`)
       .then(response => {
-        if(!response.data){
-          setIdConfirm(false);
-        }
+        setIdConfirm(response.data);
       })
       .catch(error => {
         console.error('Error:', error);
