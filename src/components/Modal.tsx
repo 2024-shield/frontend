@@ -61,7 +61,7 @@ const WeatherContainerStyle = styled.div`
 `
 
 const WeatherDivStyle = styled.div`
-    padding: 15px 0px 0px 0px;
+    padding: 10px 0px 0px 0px;
 `
 
 
@@ -74,7 +74,6 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
             fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latlng.lat()}&lon=${latlng.lng()}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`)
                 .then(response => response.json())
                 .then(data => setWeatherData(data))
-                .then(data => console.log(data))
                 .catch(error => console.error('Error:', error));
         }
     }, [latlng]);
@@ -101,10 +100,12 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
 
                 {weatherData && (
                     <WeatherContainerStyle>
-                        <WeatherDivStyle>날씨 정보 : {weatherData.weather[0].main}</WeatherDivStyle>
+                        <WeatherDivStyle>현재 온도 : {(weatherData.main.temp - 273.15).toFixed(2)} °C</WeatherDivStyle>
+                        <WeatherDivStyle>날씨 정보 : {weatherData.weather[0].main} - {weatherData.weather[0].description}</WeatherDivStyle>
                         <WeatherDivStyle>습도 : {weatherData.main.humidity} %</WeatherDivStyle>
                         <WeatherDivStyle>풍향 : {getWindDirection(weatherData.wind.deg)}</WeatherDivStyle>
                         <WeatherDivStyle>풍속 : {weatherData.wind.speed} m/s</WeatherDivStyle>
+                        <WeatherDivStyle>구름 : {weatherData.clouds.all} %</WeatherDivStyle>
                     </WeatherContainerStyle>
                 )}
             </InfoContainerStyle>

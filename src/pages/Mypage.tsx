@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 const ChangemypageStyle = styled.div`
     width: 100%;
@@ -72,6 +74,17 @@ const My = () => {
     const onChangemy = () => {
         navigate("/changemy")
     }
+
+    useEffect(() => {
+        axios.post('http://localhost:8080/api/mypage')
+        .then(response => {
+            console.log(response.data);
+            //navigate("/main") // 회원가입 후 페이지 이동
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    })
 
     return(
         <div className="mypage">
