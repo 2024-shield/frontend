@@ -43,3 +43,15 @@ select{
     width: 50%;
     border-radius: 0px;
 }
+
+#width_middle{
+    width: 80%;
+}
+
+#width_short{
+    width: 40%
+}
+
+#height_long{
+    height: 13vh;
+}
