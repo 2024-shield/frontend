@@ -35,7 +35,7 @@ const Header = () => {
                 </div>
             </Link>
 
-            <Link to="/my">
+            <Link to="/mypage">
                 <div className="my">
                     <FontAwesomeIcon icon={faUser} /> 마이페이지
                 </div>

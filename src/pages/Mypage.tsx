@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Button from '../components/Button';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const ChangemypageStyle = styled.div`
@@ -70,21 +70,28 @@ const PhonedivStyle = styled.div`
 
 const My = () => {
     const navigate = useNavigate();
+    const [data, setData]= useState([]);
 
     const onChangemy = () => {
         navigate("/changemy")
     }
 
     useEffect(() => {
-        axios.post('http://localhost:8080/api/mypage')
+        const instance = axios.create({
+            baseURL: 'http://localhost:8080',  // 여기에 실제 서버 주소를 입력하세요
+            withCredentials: true
+        });
+
+        instance.post('/api/mypage')
         .then(response => {
-            console.log(response.data);
-            //navigate("/main") // 회원가입 후 페이지 이동
+            setData(response.data)
+            // 응답을 받아서 처리하는 코드를 여기에 작성하세요.
         })
         .catch(error => {
             console.error('Error:', error);
+            // 에러를 처리하는 코드를 여기에 작성하세요.
         });
-    })
+    }, []);
 
     return(
         <div className="mypage">
@@ -96,14 +103,12 @@ const My = () => {
             <NamedivStyle>
                 <H5Style>이름</H5Style> 
                 <InputStyle/>
+                {/* value={data.userId} */}
             </NamedivStyle>
 
             <IDdivStyle>
                 <H5Style>아이디</H5Style>
-                <InputButtonStyle>
-                    <InputStyle/>
-                    흠냐
-                </InputButtonStyle>
+                <InputStyle/>
             </IDdivStyle>
 
             <PwdivStyle>
