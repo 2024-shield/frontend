@@ -90,23 +90,26 @@ const Signup = () => {
     const [password, setPassword] = useState<string>("");
     const [passwordcheck, setPasswordcheck] = useState<string>("");
     const [department, setDepartment] = useState<string>("");
-    const [area, setArea] = useState<string>("서울특별시 용산구");
+    const [area, setArea] = useState<string>("");
     const [phonenumber, setPhonenumber] = useState<string>("");
 
     const [IdConfirm, setIdConfirm] = useState<boolean | null>(null);
-    
-    const user = {
-      name: name/* 이름 입력 값 */,
-      userId: id/* 아이디 입력 값 */,
-      password: password/* 비밀번호 입력 값 */,
-      passwordCheck: passwordcheck,
-      department: department/* 소속 입력 값 */,
-      area: area/* 관할구역 선택 값 */,
-      phoneNo: phonenumber/* 연락처 입력 값 */
-  };
 
     const onSignup = () => {
         // navigate("/")
+        const currentArea = textdocityselected1 + " " + textdocityselected2;
+        setArea(currentArea);
+
+        const user = {
+          name: name,
+          userId: id,
+          password: password,
+          passwordCheck: passwordcheck,
+          department: department,
+          area: area,
+          phoneNo: phonenumber
+        };
+
         axios.post('http://localhost:8080/api/join', user)
         .then(response => {
             console.log(response.data);
@@ -129,8 +132,8 @@ const Signup = () => {
 
   const [docityselected, setdocitySelected] = useState('Seoul');
   const [docityfilteredOptions, docitysetFilteredOptions] = useState<Option[]>([]);
-  // const [longitudeselected, setlongitudeSelected] = useState(127.0495556);
-  // const [latitudeselected, setlatitudeSelected] = useState(37.514575);
+  const [textdocityselected1, setTextdocityselected1] = useState('서울특별시');
+  const [textdocityselected2, setTextdocityselected2] = useState('강남구');
 
   const fetchData = async () => {
     try {
@@ -156,32 +159,21 @@ const Signup = () => {
         }));
 
       docitysetFilteredOptions(newFilteredOptions);
-
-      // if (newFilteredOptions.length > 0) {
-      //   const selectedRow = jsonData.find((row: any[]) => row[2] === newFilteredOptions[0].value);
-      //   if (selectedRow) {
-      //     setlongitudeSelected(selectedRow[3]);
-      //     setlatitudeSelected(selectedRow[4]);
-      //   }
-      // }
     });
   }, [docityselected]);
+  
 
   const doChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setdocitySelected(e.target.value);
-  };
-
+    const selectedValue = e.target.value;
+    setdocitySelected(selectedValue);
+    setTextdocityselected1(e.target.options[e.target.selectedIndex].text);
+  };  
+  
   const doChangeSecondSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const newSelectedValue = e.target.value;
-
-    fetchData().then((jsonData) => {
-      const selectedRow = jsonData.find((row: any[]) => row[2] === newSelectedValue);
-      if (selectedRow) {
-        // setlongitudeSelected(selectedRow[3]);
-        // setlatitudeSelected(selectedRow[4]);
-      }
-    });
-  };
+    const selectedValue = e.target.value;
+    setTextdocityselected2(e.target.options[e.target.selectedIndex].text);
+  }
+  
     
   return(
     <div className="Signuppage">
