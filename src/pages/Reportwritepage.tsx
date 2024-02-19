@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import Button from "../components/Button";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 interface DataState {
     area: string;
@@ -100,6 +100,7 @@ const Reportwrite = () => {
     const [firestation, setFirestation] = useState<string>("");
     const [date, setDate] = useState<string>("");
     const [time, setTime] = useState<string>("");
+    const [location, setLocation] = useState<string>("");
     const [cause, setCause] = useState<string>("");
     const [deathnumber, setDeathnumber] = useState<number>(0);
     const [injurynumber, setInjurynumber] = useState<number>(0);
@@ -112,10 +113,12 @@ const Reportwrite = () => {
 
     const [data, setData]= useState<DataState | null>(null);
 
-    const location = useLocation();
-    const title = location.state.title;
+    const navigate = useNavigate();
+    const uselocation = useLocation();
+    const title = uselocation.state.title;
 
     const report = {
+        location: location,
         cause: cause,
         deathNum: deathnumber,
         injuryNum: injurynumber,
@@ -124,15 +127,15 @@ const Reportwrite = () => {
         money: property,
         workerNum: number,
         equipNum: equipment,
-        action: action        
+        action: action
     }
 
     const onReportwrite = () => {
         // navigate("/")
-        axios.post('http://localhost:8080/api/reports/create/{fireId}', report)
+        axios.post('http://localhost:8080/api/reports/create', report)
         .then(response => {
             console.log(response.data);
-            //navigate("/") // 회원가입 후 페이지 이동
+            navigate("/reportlist") // 회원가입 후 페이지 이동
         })
         .catch(error => {
             console.error('Error:', error);
@@ -145,10 +148,9 @@ const Reportwrite = () => {
             withCredentials: true
         });
 
-        instance.post('/api/mypage')
+        instance.get('/api/reports/create')
         .then(response => {
             setData(response.data)
-            console.log(response.data)
         })
         .catch(error => {
             console.error('Error:', error);
@@ -170,7 +172,7 @@ const Reportwrite = () => {
 
                         <FormDivStyle>
                             <H5Style>관할 소방서</H5Style>
-                            <InputStyle id="width_middle" onChange={e => setFirestation(e.target.value)} value={data ? data.area : ''}/>
+                            <InputStyle id="width_middle" onChange={e => setFirestation(e.target.value)} value={data ? data.department : ''}/>
                         </FormDivStyle>
                     </InfoNameStyle>
 
@@ -181,7 +183,7 @@ const Reportwrite = () => {
                         <InputStyle type="time" onChange={e => setTime(e.target.value)}/>
 
                         <H5Style>장소</H5Style>
-                        <InputStyle value={title}/>
+                        <InputStyle value={title} onChange={e => setLocation(e.target.value)}/>
 
                         <H5Style>원인</H5Style>
                         <InputStyle id="height_long" onChange={e => setCause(e.target.value)}/>
@@ -245,7 +247,7 @@ const Reportwrite = () => {
                 </InputboxStyle>
 
                 <InputButtonStyle>
-                    <Button text="제출하기"/>
+                    <Button text="제출하기" onClick={onReportwrite}/>
                 </InputButtonStyle>
 
             </ReportwritepageStyle>

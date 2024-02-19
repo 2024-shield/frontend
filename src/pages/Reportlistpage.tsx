@@ -1,7 +1,35 @@
 import styled from 'styled-components';
 import Header from "../components/Header";
-import Button from "../components/Button";
 import { Link, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+interface DataState {
+    location: string,
+    cause: string,
+    deathNum: number,
+    injuryNum: number,
+    theDead: string,
+    theInjured: string,
+    money: number,
+    workerNum: number,
+    equipNum: string,
+    action: string,
+  }
+
+interface Report {
+    id: number,
+    cause: string,
+    createdTime: {
+        year: number;
+        month: number;
+        day: number;
+        hour: number;
+        minute: number;
+        second: number;
+        nanosecond: number;
+    };
+}
 
 const ReportlistpageStyle = styled.div`
     width: 100%;
@@ -11,20 +39,9 @@ const ReportlistpageStyle = styled.div`
     /* overflow-y: scroll; */
 `
 
-const SearchboxStyle = styled.div`
-    height: 10vh;
-`
-
-const ButtonboxStyle = styled.div`
-    width: 100%;
-    height: 5vh;
-    display: flex;
-    justify-content: center;
-`
-
 const ListboxStyle = styled.div`
     width: 100%;
-    height: 62vh;
+    height: 77vh;
     overflow-y: scroll;
     margin-top: 2vh;
 `
@@ -40,46 +57,36 @@ const ReportListStyle = styled.div`
 `
 
 const Reportlist = () => {
-
+    const [data, setData]= useState<DataState | null>(null);
     const navigate = useNavigate();
-
-    const onSubmit = () => {
-        navigate("/reportwrite")
-    }
     
-    const reports = 
-        [
-            { id: 1, title: '보고서 1'},        
-            { id: 2, title: '보고서 2'},        
-            { id: 3, title: '보고서 3'},    
-            { id: 4, title: '보고서 1'},        
-            { id: 5, title: '보고서 2'},  
-            { id: 6, title: '보고서 1'},        
-            { id: 7, title: '보고서 2'},  
-        ];
+    const [reports, setReports] = useState<Report[]>([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:8080/api/reports')
+            .then(response => {
+                setReports(response.data);
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }, []);
+        
     return(
         <div className="Reportpage">
             <Header />
             <ReportlistpageStyle>
                 <h3 id="page_title">보고서 내역</h3>
 
-                <SearchboxStyle>
-                    <h4>기간 검색</h4>
-
-                </SearchboxStyle>
-
-                <ButtonboxStyle>
-                    <Button text="보고서 작성하기" onClick={onSubmit} />
-                </ButtonboxStyle>
-
                 <ListboxStyle>
                 {reports.map((report) => (
-                    <Link to={`/report/${report.id}`}>
-                        <ReportListStyle key={report.id}>
-                                <h5>{report.title}</h5>
+                    <Link to={`/report/${report.id}`} key={report.id}>
+                        <ReportListStyle>
+                            <h5>{report.cause}</h5>
                         </ReportListStyle>
                     </Link>
-                    ))}
+                ))}
                 </ListboxStyle>
             </ReportlistpageStyle>
         </div>

@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import Button from '../components/Button';
-import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -105,7 +103,6 @@ const My = () => {
             <NamedivStyle>
                 <H5Style>이름</H5Style> 
                 <InputStyle type="text" value={data ? data.name : ''} />
-                {/* value={data.userId} */}
             </NamedivStyle>
 
             <IDdivStyle>
