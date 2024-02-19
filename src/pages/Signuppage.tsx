@@ -106,7 +106,7 @@ const Signup = () => {
           password: password,
           passwordCheck: passwordcheck,
           department: department,
-          area: area,
+          area: currentArea,
           phoneNo: phonenumber
         };
 
