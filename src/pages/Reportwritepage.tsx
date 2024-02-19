@@ -118,7 +118,7 @@ const Reportwrite = () => {
     const title = uselocation.state.title;
 
     const report = {
-        location: location,
+        reportFirePlace: location,
         cause: cause,
         deathNum: deathnumber,
         injuryNum: injurynumber,
@@ -155,6 +155,8 @@ const Reportwrite = () => {
         .catch(error => {
             console.error('Error:', error);
         });
+
+        setLocation(title);
     }, []);
 
     return(
@@ -183,7 +185,7 @@ const Reportwrite = () => {
                         <InputStyle type="time" onChange={e => setTime(e.target.value)}/>
 
                         <H5Style>장소</H5Style>
-                        <InputStyle value={title} onChange={e => setLocation(e.target.value)}/>
+                        <InputStyle value={title}/>
 
                         <H5Style>원인</H5Style>
                         <InputStyle id="height_long" onChange={e => setCause(e.target.value)}/>
