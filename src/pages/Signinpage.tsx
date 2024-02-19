@@ -50,7 +50,7 @@ const Signin = () => {
 
     const onSignin = () => {
         // navigate("/main")
-        axios.post('http://localhost:8080/api/login', user)
+        axios.post('http://localhost:8080/api', user)
         .then(response => {
             console.log(response.data);
             navigate("/main") // 회원가입 후 페이지 이동
