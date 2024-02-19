@@ -95,8 +95,8 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
 
     const navigate = useNavigate();
 
-    const onSubmit = () => {
-        navigate("/reportwrite")
+    const onSubmit = (title: string) => {
+        // history.push('/reportwrite', { title: title });
     }
     
   return (
@@ -108,11 +108,14 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
             </CloseButtonStyle>
 
             <InfoContainerStyle>
-                {title && (<h5>{title}</h5>)}
-                {latlng && (
-                    <h5>위도: {latlng.lat()}, 경도: {latlng.lng()}</h5>
+                {title && (
+                    <>
+                        <h5>{title}</h5>
+                        <ButtonboxStyle>
+                            <Button text="보고서 작성하기" onClick={() => onSubmit(title)} />
+                        </ButtonboxStyle>
+                    </>
                 )}
-
                 {weatherData && (
                     <WeatherContainerStyle>
                         <WeatherDivStyle>현재 온도 : {(weatherData.main.temp - 273.15).toFixed(2)} °C</WeatherDivStyle>
@@ -123,10 +126,6 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
                         <WeatherDivStyle>구름 : {weatherData.clouds.all} %</WeatherDivStyle>
                     </WeatherContainerStyle>
                 )}
-
-                <ButtonboxStyle>
-                    <Button text="보고서 작성하기" onClick={onSubmit} />
-                </ButtonboxStyle>
                 
             </InfoContainerStyle>
         </ModalContainer>

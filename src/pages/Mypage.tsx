@@ -5,6 +5,15 @@ import Header from '../components/Header';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+interface DataState {
+    area: string;
+    department: string;
+    name: string;
+    password: string;
+    phoneNo: string;
+    userId: string;
+  }
+
 const ChangemypageStyle = styled.div`
     width: 100%;
     height: 94vh;
@@ -70,7 +79,7 @@ const PhonedivStyle = styled.div`
 
 const My = () => {
     const navigate = useNavigate();
-    const [data, setData]= useState([]);
+    const [data, setData]= useState<DataState | null>(null);
 
     const onChangemy = () => {
         navigate("/changemy")
@@ -85,6 +94,7 @@ const My = () => {
         instance.post('/api/mypage')
         .then(response => {
             setData(response.data)
+            console.log(response.data)
             // 응답을 받아서 처리하는 코드를 여기에 작성하세요.
         })
         .catch(error => {
@@ -102,40 +112,31 @@ const My = () => {
             <InputboxStyle>
             <NamedivStyle>
                 <H5Style>이름</H5Style> 
-                <InputStyle/>
+                <InputStyle type="text" value={data ? data.name : ''} />
                 {/* value={data.userId} */}
             </NamedivStyle>
 
             <IDdivStyle>
                 <H5Style>아이디</H5Style>
-                <InputStyle/>
+                <InputStyle type="text" value={data ? data.userId : ''}/>
             </IDdivStyle>
-
-            <PwdivStyle>
-                <H5Style>비밀번호</H5Style>
-                <InputStyle/>
-                <H5Style>비밀번호 확인</H5Style>
-                <InputStyle/>
-            </PwdivStyle>
 
             <BelongdivStyle>
                 <H5Style>소속</H5Style>
-                <InputStyle />
+                <InputStyle type="text" value={data ? data.department : ''}/>
             </BelongdivStyle>
 
             <AreadivStyle>
                 <H5Style>관할구역</H5Style>
                 <SelectStyle>
-                서울특별시 강남구
+                {data ? data.area : ''}
                 </SelectStyle>
             </AreadivStyle>
 
             <PhonedivStyle>
                 <H5Style>연락처</H5Style>
-                <InputStyle />
+                <InputStyle type="text" value={data ? data.phoneNo : ''}/>
             </PhonedivStyle>
-
-            <Button text="수정하기" onClick={onChangemy}/>
             </InputboxStyle>
         </ChangemypageStyle>
       </div>
