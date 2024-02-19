@@ -93,7 +93,7 @@ const Signup = () => {
     const [area, setArea] = useState<string>("서울특별시 용산구");
     const [phonenumber, setPhonenumber] = useState<string>("");
 
-    const [IdConfirm, setIdConfirm] = useState<boolean>(true);
+    const [IdConfirm, setIdConfirm] = useState<boolean | null>(null);
     
     const user = {
       name: name/* 이름 입력 값 */,
@@ -118,7 +118,7 @@ const Signup = () => {
     }
 
     const idCheck = () => {
-      axios.get(`http://localhost:8080/api/check/id?userId=${id}`)
+      axios.post(`http://localhost:8080/api/check/id`, { userId: id })
       .then(response => {
         setIdConfirm(response.data);
       })
@@ -197,7 +197,8 @@ const Signup = () => {
           <IDdivStyle>
               <TitleStyle>
                 <H5Style>아이디</H5Style>
-                {!IdConfirm && <h6>아이디가 중복입니다</h6>}  
+                {IdConfirm === false && <h6>아이디가 중복입니다</h6>}  
+                {IdConfirm === true && <h6>사용 가능한 아이디입니다</h6>}  
               </TitleStyle>
               <InputButtonStyle>
                   <InputStyle onChange={e => setId(e.target.value)} type='text'/>

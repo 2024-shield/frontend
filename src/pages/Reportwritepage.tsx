@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import Header from "../components/Header";
 import Button from "../components/Button";
+import { useState } from 'react';
+import axios from 'axios';
 
 const ReportwritepageStyle = styled.div`
     width: 100%;
@@ -85,6 +87,45 @@ const ConnectDiv = styled.div`
 `
 
 const Reportwrite = () => {
+    const [writer, setWriter] = useState<string>("");
+    const [firestation, setFirestation] = useState<string>("");
+    const [date, setDate] = useState<string>("");
+    const [time, setTime] = useState<string>("");
+    const [location, setLocation] = useState<string>("");
+    const [cause, setCause] = useState<string>("");
+    const [deathnumber, setDeathnumber] = useState<number>(0);
+    const [injurynumber, setInjurynumber] = useState<number>(0);
+    const [deathlist, setDeathlist] = useState<string>("");
+    const [injurylist, setInjurylist] = useState<string>("");
+    const [property, setProperty] = useState<number>(0);
+    const [number, setNumber] = useState<number>(0);
+    const [equipment, setEquipment] = useState<number>(0);
+    const [action, setAction] = useState<string>("");
+
+    const report = {
+        cause: cause,
+        deathNum: deathnumber,
+        injuryNum: injurynumber,
+        theDead: deathlist,
+        theInjured: injurylist,
+        money: property,
+        workerNum: number,
+        equipNum: equipment,
+        action: action        
+    }
+
+    const onReportwrite = () => {
+        // navigate("/")
+        axios.post('http://localhost:8080/api/reports/create/{fireId}', report)
+        .then(response => {
+            console.log(response.data);
+            //navigate("/") // 회원가입 후 페이지 이동
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
     return(
         <div className="Reportpage">
             <Header />
@@ -95,26 +136,26 @@ const Reportwrite = () => {
                     <InfoNameStyle>
                         <FormDivStyle>
                             <H5Style>작성자</H5Style>
-                            <InputStyle id="width_middle"/>
+                            <InputStyle id="width_middle" onChange={e => setWriter(e.target.value)}/>
                         </FormDivStyle>
 
                         <FormDivStyle>
                             <H5Style>관할 소방서</H5Style>
-                            <InputStyle id="width_middle"/>
+                            <InputStyle id="width_middle" onChange={e => setFirestation(e.target.value)}/>
                         </FormDivStyle>
                     </InfoNameStyle>
 
                     <InfoEventStyle>
                         <H4Style>발생 개요</H4Style>
                         <H5Style>일시</H5Style>
-                        <InputStyle type="date"/>
-                        <InputStyle type="time"/>
+                        <InputStyle type="date" onChange={e => setDate(e.target.value)}/>
+                        <InputStyle type="time" onChange={e => setTime(e.target.value)}/>
 
                         <H5Style>장소</H5Style>
-                        <InputStyle />
+                        <InputStyle onChange={e => setLocation(e.target.value)} value="효창공원"/>
 
                         <H5Style>원인</H5Style>
-                        <InputStyle id="height_long" />
+                        <InputStyle id="height_long" onChange={e => setCause(e.target.value)}/>
                     </InfoEventStyle>
 
                     <InfoDamageStyle>
@@ -124,27 +165,27 @@ const Reportwrite = () => {
                             <FormDivStyle>
                                 <H5Style>사망자 수</H5Style>
                                 <ConnectDiv>
-                                    <InputStyle id="width_short"/>
+                                    <InputStyle id="width_short" onChange={e => setDeathnumber(Number(e.target.value))}/>
                                     <H5Style>명</H5Style>
                                 </ConnectDiv>
                             </FormDivStyle>
                             <FormDivStyle>
                                 <H5Style>부상자 수</H5Style>
                                 <ConnectDiv>
-                                    <InputStyle id="width_short"/>
+                                    <InputStyle id="width_short" onChange={e => setInjurynumber(Number(e.target.value))}/>
                                     <H5Style>명</H5Style>
                                 </ConnectDiv>
                             </FormDivStyle>
                         </InfoPeopleNum>
 
                         <H5Style>사망자 명단</H5Style>
-                        <InputStyle id="height_long"/>
+                        <InputStyle id="height_long" onChange={e => setDeathlist(e.target.value)}/>
 
                         <H5Style>부상자 명단</H5Style>
-                        <InputStyle id="height_long"/>
+                        <InputStyle id="height_long" onChange={e => setInjurylist(e.target.value)}/>
 
                         <H5Style>재산 피해</H5Style>
-                        <InputStyle />
+                        <InputStyle onChange={e => setProperty(Number(e.target.value))}/>
                     </InfoDamageStyle>
 
                     <InfoMobilizationStyle>
@@ -153,7 +194,7 @@ const Reportwrite = () => {
                             <FormDivStyle>
                                 <H5Style>인원</H5Style>
                                 <ConnectDiv>
-                                    <InputStyle id="width_short"/>
+                                    <InputStyle id="width_short" onChange={e => setNumber(Number(e.target.value))}/>
                                     <H5Style>명</H5Style>
                                 </ConnectDiv>
                             </FormDivStyle>
@@ -161,7 +202,7 @@ const Reportwrite = () => {
                             <FormDivStyle>
                                 <H5Style>장비</H5Style>
                                 <ConnectDiv>
-                                    <InputStyle id="width_short"/>
+                                    <InputStyle id="width_short" onChange={e => setEquipment(Number(e.target.value))}/>
                                     <H5Style>대</H5Style>
                                 </ConnectDiv>
                             </FormDivStyle>
@@ -170,7 +211,7 @@ const Reportwrite = () => {
 
                     <InfoActionStyle>
                         <H4Style>조치 사항</H4Style>
-                        <InputStyle id="height_long"/>
+                        <InputStyle id="height_long" onChange={e => setAction(e.target.value)}/>
                     </InfoActionStyle>
                 </InputboxStyle>
 

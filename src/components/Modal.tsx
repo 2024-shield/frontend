@@ -2,6 +2,8 @@ import { styled } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo, faClose } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
+import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 
 interface ModalProps{
     title: string | null | undefined;
@@ -52,6 +54,13 @@ const CloseButtonStyle = styled.div`
     }
 `
 
+const ButtonboxStyle = styled.div`
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+`
+
 const InfoContainerStyle = styled.div`
 
 `
@@ -83,6 +92,12 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
         const value = Math.floor((deg + 22.5) / 45);
         return directions[value % 8];
      };
+
+    const navigate = useNavigate();
+
+    const onSubmit = () => {
+        navigate("/reportwrite")
+    }
     
   return (
     <ModalWrap>
@@ -108,6 +123,11 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
                         <WeatherDivStyle>구름 : {weatherData.clouds.all} %</WeatherDivStyle>
                     </WeatherContainerStyle>
                 )}
+
+                <ButtonboxStyle>
+                    <Button text="보고서 작성하기" onClick={onSubmit} />
+                </ButtonboxStyle>
+                
             </InfoContainerStyle>
         </ModalContainer>
     </ModalWrap>
