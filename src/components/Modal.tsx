@@ -42,7 +42,7 @@ const ModalContainer = styled.div`
     position: relative;
     z-index: 25;
     width: 360px;
-    height: 40vh;
+    height: 50vh;
 `;
 
 const CloseButtonStyle = styled.div`
@@ -96,7 +96,7 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
     const navigate = useNavigate();
 
     const onSubmit = (title: string) => {
-        // history.push('/reportwrite', { title: title });
+        navigate('/reportwrite', { state: { title } });
     }
     
   return (

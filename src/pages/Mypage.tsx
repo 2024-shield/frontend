@@ -9,7 +9,6 @@ interface DataState {
     area: string;
     department: string;
     name: string;
-    password: string;
     phoneNo: string;
     userId: string;
   }
@@ -78,16 +77,11 @@ const PhonedivStyle = styled.div`
 `
 
 const My = () => {
-    const navigate = useNavigate();
     const [data, setData]= useState<DataState | null>(null);
-
-    const onChangemy = () => {
-        navigate("/changemy")
-    }
 
     useEffect(() => {
         const instance = axios.create({
-            baseURL: 'http://localhost:8080',  // 여기에 실제 서버 주소를 입력하세요
+            baseURL: 'http://localhost:8080',
             withCredentials: true
         });
 
@@ -95,11 +89,9 @@ const My = () => {
         .then(response => {
             setData(response.data)
             console.log(response.data)
-            // 응답을 받아서 처리하는 코드를 여기에 작성하세요.
         })
         .catch(error => {
             console.error('Error:', error);
-            // 에러를 처리하는 코드를 여기에 작성하세요.
         });
     }, []);
 

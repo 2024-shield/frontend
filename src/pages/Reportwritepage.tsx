@@ -1,8 +1,17 @@
 import styled from 'styled-components';
 import Header from "../components/Header";
 import Button from "../components/Button";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+
+interface DataState {
+    area: string;
+    department: string;
+    name: string;
+    phoneNo: string;
+    userId: string;
+  }
 
 const ReportwritepageStyle = styled.div`
     width: 100%;
@@ -91,7 +100,6 @@ const Reportwrite = () => {
     const [firestation, setFirestation] = useState<string>("");
     const [date, setDate] = useState<string>("");
     const [time, setTime] = useState<string>("");
-    const [location, setLocation] = useState<string>("");
     const [cause, setCause] = useState<string>("");
     const [deathnumber, setDeathnumber] = useState<number>(0);
     const [injurynumber, setInjurynumber] = useState<number>(0);
@@ -101,6 +109,11 @@ const Reportwrite = () => {
     const [number, setNumber] = useState<number>(0);
     const [equipment, setEquipment] = useState<number>(0);
     const [action, setAction] = useState<string>("");
+
+    const [data, setData]= useState<DataState | null>(null);
+
+    const location = useLocation();
+    const title = location.state.title;
 
     const report = {
         cause: cause,
@@ -126,6 +139,22 @@ const Reportwrite = () => {
         });
     }
 
+    useEffect(() => {
+        const instance = axios.create({
+            baseURL: 'http://localhost:8080',
+            withCredentials: true
+        });
+
+        instance.post('/api/mypage')
+        .then(response => {
+            setData(response.data)
+            console.log(response.data)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }, []);
+
     return(
         <div className="Reportpage">
             <Header />
@@ -136,12 +165,12 @@ const Reportwrite = () => {
                     <InfoNameStyle>
                         <FormDivStyle>
                             <H5Style>작성자</H5Style>
-                            <InputStyle id="width_middle" onChange={e => setWriter(e.target.value)}/>
+                            <InputStyle id="width_middle" onChange={e => setWriter(e.target.value)} value={data ? data.name : ''}/>
                         </FormDivStyle>
 
                         <FormDivStyle>
                             <H5Style>관할 소방서</H5Style>
-                            <InputStyle id="width_middle" onChange={e => setFirestation(e.target.value)}/>
+                            <InputStyle id="width_middle" onChange={e => setFirestation(e.target.value)} value={data ? data.area : ''}/>
                         </FormDivStyle>
                     </InfoNameStyle>
 
@@ -152,7 +181,7 @@ const Reportwrite = () => {
                         <InputStyle type="time" onChange={e => setTime(e.target.value)}/>
 
                         <H5Style>장소</H5Style>
-                        <InputStyle onChange={e => setLocation(e.target.value)} value="효창공원"/>
+                        <InputStyle value={title}/>
 
                         <H5Style>원인</H5Style>
                         <InputStyle id="height_long" onChange={e => setCause(e.target.value)}/>
