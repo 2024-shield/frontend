@@ -77,7 +77,7 @@ const Reportlist = () => {
                 {reports.map((report) => (
                     <Link to={`/report/${report.id}`} key={report.id}>
                         <ReportListStyle>
-                            <h5>{report.member.userId} / {report.cause}</h5>
+                            <h5>{report.cause}</h5>
                         </ReportListStyle>
                     </Link>
                 ))}

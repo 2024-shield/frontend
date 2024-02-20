@@ -96,8 +96,6 @@ const ConnectDiv = styled.div`
 `
 
 const Reportwrite = () => {
-    const [writer, setWriter] = useState<string>("");
-    const [firestation, setFirestation] = useState<string>("");
     const [date, setDate] = useState<string>("");
     const [time, setTime] = useState<string>("");
     const [location, setLocation] = useState<string>("");
@@ -118,6 +116,8 @@ const Reportwrite = () => {
     const title = uselocation.state.title;
 
     const report = {
+        reportFireDate: date,
+        reportFireTime: time,
         reportFirePlace: location,
         cause: cause,
         deathNum: deathnumber,
@@ -169,12 +169,12 @@ const Reportwrite = () => {
                     <InfoNameStyle>
                         <FormDivStyle>
                             <H5Style>작성자</H5Style>
-                            <InputStyle id="width_middle" onChange={e => setWriter(e.target.value)} value={data ? data.name : ''}/>
+                            <InputStyle id="width_middle" value={data? data.name : ''}/>
                         </FormDivStyle>
 
                         <FormDivStyle>
                             <H5Style>관할 소방서</H5Style>
-                            <InputStyle id="width_middle" onChange={e => setFirestation(e.target.value)} value={data ? data.department : ''}/>
+                            <InputStyle id="width_middle" value={data? data.department : ''}/>
                         </FormDivStyle>
                     </InfoNameStyle>
 
