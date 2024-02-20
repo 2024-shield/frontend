@@ -53,17 +53,6 @@ const IDdivStyle = styled.div`
     flex-direction: column;
 `
 
-const InputButtonStyle = styled.div`
-    width: 300px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    margin: 10px 0px;
-`
-
-const PwdivStyle = styled.div`
-`
-
 const BelongdivStyle = styled.div`
 `
 

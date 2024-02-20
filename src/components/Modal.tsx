@@ -4,6 +4,7 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 interface ModalProps{
     title: string | null | undefined;
@@ -86,7 +87,14 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
                 .catch(error => console.error('Error:', error));
         }
 
-        
+        axios.get('http://localhost:8080/api/fire-Info')
+        .then(response => {
+            console.log(response.data)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
     }, [latlng]);
 
     const getWindDirection = (deg: number) => {
