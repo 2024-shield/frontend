@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleInfo, faClose } from "@fortawesome/free-solid-svg-icons";
+import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
@@ -12,10 +12,10 @@ interface ModalProps{
 }
 
 const ModalWrap = styled.div`
-  position: fixed;  // 위치를 fixed로 설정합니다.
-  display: flex;  // display를 flex로 설정합니다.
-  justify-content: center;  // 중앙 정렬을 위해 justify-content를 center로 설정합니다.
-  align-items: center;  // 중앙 정렬을 위해 align-items를 center로 설정합니다.
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   top: 0;
   left: 0;
   width: 100vw;
@@ -42,7 +42,7 @@ const ModalContainer = styled.div`
     position: relative;
     z-index: 25;
     width: 360px;
-    height: 50vh;
+    height: 70vh;
 `;
 
 const CloseButtonStyle = styled.div`
@@ -59,6 +59,7 @@ const ButtonboxStyle = styled.div`
     height: 5vh;
     display: flex;
     justify-content: center;
+    margin: 10px 0px;
 `
 
 const InfoContainerStyle = styled.div`
@@ -79,12 +80,13 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
   
     useEffect(() => {
         if(latlng){
-        //onecall?lat=${latlng.lat()}&lon=${latlng.lng()}&exclude=current&appid=${import.meta.env.VITE_WEATHER_API_KEY}`
             fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latlng.lat()}&lon=${latlng.lng()}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`)
                 .then(response => response.json())
                 .then(data => setWeatherData(data))
                 .catch(error => console.error('Error:', error));
         }
+
+        
     }, [latlng]);
 
     const getWindDirection = (deg: number) => {
@@ -116,6 +118,9 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
                         </ButtonboxStyle>
                     </>
                 )}
+
+
+
                 {weatherData && (
                     <WeatherContainerStyle>
                         <WeatherDivStyle>현재 온도 : {(weatherData.main.temp - 273.15).toFixed(2)} °C</WeatherDivStyle>

@@ -1,28 +1,18 @@
 import styled from 'styled-components';
 import Header from "../components/Header";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
-interface DataState {
-    location: string,
-    cause: string,
-    deathNum: number,
-    injuryNum: number,
-    theDead: string,
-    theInjured: string,
-    money: number,
-    workerNum: number,
-    equipNum: string,
-    action: string,
-  }
 
 interface Report {
     id: number,
     cause: string,
     member:{
-        userId: string,
+        name: string,
     }
+    reportFireDate: string,
+    reportFireTime: string,
+    reportFirePlace: string,
 }
 
 const ReportlistpageStyle = styled.div`
@@ -51,9 +41,6 @@ const ReportListStyle = styled.div`
 `
 
 const Reportlist = () => {
-    const [data, setData]= useState<DataState | null>(null);
-    const navigate = useNavigate();
-    
     const [reports, setReports] = useState<Report[]>([]);
 
     useEffect(() => {
@@ -77,7 +64,7 @@ const Reportlist = () => {
                 {reports.map((report) => (
                     <Link to={`/report/${report.id}`} key={report.id}>
                         <ReportListStyle>
-                            <h5>{report.cause}</h5>
+                            <h5>{report.reportFireDate} / {report.reportFireTime}</h5>
                         </ReportListStyle>
                     </Link>
                 ))}

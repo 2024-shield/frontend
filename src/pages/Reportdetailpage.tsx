@@ -108,8 +108,6 @@ const ReportdetailpageStyle = styled.div`
 `
 
 const Reportdetail = () => {
-    const [writer, setWriter] = useState<string>("");
-    const [firestation, setFirestation] = useState<string>("");
     const [date, setDate] = useState<string>("");
     const [time, setTime] = useState<string>("");
     const [location, setLocation] = useState<string>("");
@@ -137,6 +135,19 @@ const Reportdetail = () => {
             );
             setReports(filteredReports);
             console.log(filteredReports);
+
+            setDate(filteredReports[0].reportFireDate);
+            setTime(filteredReports[0].reportFireTime);
+            setLocation(filteredReports[0].location);
+            setCause(filteredReports[0].cause);
+            setDeathnumber(filteredReports[0].deathNum)
+            setInjurynumber(filteredReports[0].injuryNum)
+            setDeathlist(filteredReports[0].theDead)
+            setInjurylist(filteredReports[0].theInjured)
+            setProperty(filteredReports[0].money)
+            setNumber(filteredReports[0].workerNum)
+            setEquipment(filteredReports[0].equipNum)
+            setAction(filteredReports[0].action)
         })
         .catch(error => {
             console.error('Error:', error);
@@ -175,7 +186,7 @@ const Reportdetail = () => {
             <Header />
             <ReportdetailpageStyle>
                 <h3 id="page_title">보고서 수정하기</h3>
-                {reports && reports.map((report, index) => (
+                {reports && reports.map((report) => (
                     <>
                         <InputboxStyle>
                         <InfoNameStyle>
@@ -217,20 +228,23 @@ const Reportdetail = () => {
                                 <FormDivStyle>
                                     <H5Style>부상자 수</H5Style>
                                     <ConnectDiv>
-                                        <InputStyle id="width_short" defaultValue={report.injuryNum} />
+                                        <InputStyle id="width_short" onChange={e => setInjurynumber(Number(e.target.value))} defaultValue={report.injuryNum} />
                                         <H5Style>명</H5Style>
                                     </ConnectDiv>
                                 </FormDivStyle>
                             </InfoPeopleNum>
 
                             <H5Style>사망자 명단</H5Style>
-                            <InputStyle id="height_long" defaultValue={report.theDead}/>
+                            <InputStyle id="height_long" onChange={e => setDeathlist(e.target.value)} defaultValue={report.theDead}/>
 
                             <H5Style>부상자 명단</H5Style>
-                            <InputStyle id="height_long" defaultValue={report.theInjured}/>
+                            <InputStyle id="height_long" onChange={e => setInjurylist(e.target.value)} defaultValue={report.theInjured}/>
 
                             <H5Style>재산 피해</H5Style>
-                            <InputStyle defaultValue={report.money}/>
+                            <ConnectDiv>
+                                <InputStyle id="width_middle" onChange={e => setProperty(Number(e.target.value))} defaultValue={report.money}/>
+                                <H5Style>원</H5Style>
+                            </ConnectDiv>
                         </InfoDamageStyle>
 
                         <InfoMobilizationStyle>
@@ -239,7 +253,7 @@ const Reportdetail = () => {
                                 <FormDivStyle>
                                     <H5Style>인원</H5Style>
                                     <ConnectDiv>
-                                        <InputStyle id="width_short" defaultValue={report.workerNum}/>
+                                        <InputStyle id="width_short" onChange={e => setNumber(Number(e.target.value))} defaultValue={report.workerNum}/>
                                         <H5Style>명</H5Style>
                                     </ConnectDiv>
                                 </FormDivStyle>
@@ -247,7 +261,7 @@ const Reportdetail = () => {
                                 <FormDivStyle>
                                     <H5Style>장비</H5Style>
                                     <ConnectDiv>
-                                        <InputStyle id="width_short" defaultValue={report.equipNum}/>
+                                        <InputStyle id="width_short" onChange={e => setEquipment(Number(e.target.value))} defaultValue={report.equipNum}/>
                                         <H5Style>대</H5Style>
                                     </ConnectDiv>
                                 </FormDivStyle>
@@ -256,7 +270,7 @@ const Reportdetail = () => {
 
                         <InfoActionStyle>
                             <H4Style>조치 사항</H4Style>
-                            <InputStyle id="height_long" defaultValue={report.action}/>
+                            <InputStyle id="height_long" onChange={e => setAction(e.target.value)} defaultValue={report.action}/>
                         </InfoActionStyle>
                     </InputboxStyle>
                 </>

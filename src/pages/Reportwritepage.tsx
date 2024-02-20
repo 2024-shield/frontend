@@ -135,7 +135,7 @@ const Reportwrite = () => {
         axios.post('http://localhost:8080/api/reports/create', report)
         .then(response => {
             console.log(response.data);
-            navigate("/reportlist") // 회원가입 후 페이지 이동
+            navigate("/reportlist")
         })
         .catch(error => {
             console.error('Error:', error);
@@ -218,7 +218,10 @@ const Reportwrite = () => {
                         <InputStyle id="height_long" onChange={e => setInjurylist(e.target.value)}/>
 
                         <H5Style>재산 피해</H5Style>
-                        <InputStyle onChange={e => setProperty(Number(e.target.value))}/>
+                        <ConnectDiv>
+                            <InputStyle onChange={e => setProperty(Number(e.target.value))}/>
+                            <H5Style>원</H5Style>
+                        </ConnectDiv>
                     </InfoDamageStyle>
 
                     <InfoMobilizationStyle>
