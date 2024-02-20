@@ -252,7 +252,7 @@ const Reportwrite = () => {
                 </InputboxStyle>
 
                 <InputButtonStyle>
-                    <Button text="제출하기" onClick={onReportwrite}/>
+                    <Button text="Submit" onClick={onReportwrite}/>
                 </InputButtonStyle>
 
             </ReportwritepageStyle>

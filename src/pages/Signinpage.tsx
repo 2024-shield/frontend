@@ -73,9 +73,9 @@ const Signin = () => {
             </InputDivStyle>
             
             <ButtonDivStyle>
-                <Button text="로그인" onClick={onSignin}/>
+                <Button text="Signin" onClick={onSignin}/>
                 <hr />
-                <Button text="회원가입" onClick={NavigateSignup}/>
+                <Button text="Signup" onClick={NavigateSignup}/>
             </ButtonDivStyle>
         </SigninpageStyle>
     )

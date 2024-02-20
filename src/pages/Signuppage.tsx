@@ -90,7 +90,6 @@ const Signup = () => {
     const [password, setPassword] = useState<string>("");
     const [passwordcheck, setPasswordcheck] = useState<string>("");
     const [department, setDepartment] = useState<string>("");
-    const [area, setArea] = useState<string>("");
     const [phonenumber, setPhonenumber] = useState<string>("");
 
     const [IdConfirm, setIdConfirm] = useState<boolean | null>(null);
@@ -98,7 +97,6 @@ const Signup = () => {
     const onSignup = () => {
         // navigate("/")
         const currentArea = textdocityselected1 + " " + textdocityselected2;
-        setArea(currentArea);
 
         const user = {
           name: name,

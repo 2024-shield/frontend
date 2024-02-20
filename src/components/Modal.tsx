@@ -78,16 +78,27 @@ const WeatherDivStyle = styled.div`
 
 const Modal = ({ title, latlng, onClick }: ModalProps) =>{
     const [weatherData, setWeatherData] = useState<any>(null);
+    const [camnum, setCamnum] = useState<number>(2);
   
     useEffect(() => {
         if(latlng){
+            if(latlng.lat() ===  37.5455){ setCamnum(1) }
+
             fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latlng.lat()}&lon=${latlng.lng()}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`)
                 .then(response => response.json())
                 .then(data => setWeatherData(data))
                 .catch(error => console.error('Error:', error));
         }
 
-        axios.get('http://localhost:8080/api/fire-Info')
+        // axios.get('http://localhost:8080/api/fire-Info')
+        // .then(response => {
+        //     console.log(response.data)
+        // })
+        // .catch(error => {
+        //     console.error('Error:', error);
+        // });
+
+        axios.get("http://localhost:8080/api/fire-Info")
         .then(response => {
             console.log(response.data)
         })
