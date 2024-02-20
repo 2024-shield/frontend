@@ -163,90 +163,90 @@ const Reportwrite = () => {
         <div className="Reportpage">
             <Header />
             <ReportwritepageStyle>
-                <h3 id="page_title">보고서 작성하기</h3>
+                <h3 id="page_title">Write Report</h3>
 
                 <InputboxStyle>
                     <InfoNameStyle>
                         <FormDivStyle>
-                            <H5Style>작성자</H5Style>
+                            <H5Style>Writer</H5Style>
                             <InputStyle id="width_middle" value={data? data.name : ''}/>
                         </FormDivStyle>
 
                         <FormDivStyle>
-                            <H5Style>관할 소방서</H5Style>
+                            <H5Style>Competent fire station</H5Style>
                             <InputStyle id="width_middle" value={data? data.department : ''}/>
                         </FormDivStyle>
                     </InfoNameStyle>
 
                     <InfoEventStyle>
-                        <H4Style>발생 개요</H4Style>
-                        <H5Style>일시</H5Style>
+                        <H4Style>Outline</H4Style>
+                        <H5Style>Date and Time</H5Style>
                         <InputStyle type="date" onChange={e => setDate(e.target.value)}/>
                         <InputStyle type="time" onChange={e => setTime(e.target.value)}/>
 
-                        <H5Style>장소</H5Style>
+                        <H5Style>Place</H5Style>
                         <InputStyle value={title}/>
 
-                        <H5Style>원인</H5Style>
+                        <H5Style>Cause</H5Style>
                         <InputStyle id="height_long" onChange={e => setCause(e.target.value)}/>
                     </InfoEventStyle>
 
                     <InfoDamageStyle>
-                        <H4Style>피해 상황</H4Style>
-                        <H5Style>인명 피해</H5Style>
+                        <H4Style>Damage Situation</H4Style>
+                        <H5Style>Casualties</H5Style>
                         <InfoPeopleNum>
                             <FormDivStyle>
-                                <H5Style>사망자 수</H5Style>
+                                <H5Style>The number of dead</H5Style>
                                 <ConnectDiv>
                                     <InputStyle id="width_short" onChange={e => setDeathnumber(Number(e.target.value))}/>
-                                    <H5Style>명</H5Style>
+                                    <H5Style>people</H5Style>
                                 </ConnectDiv>
                             </FormDivStyle>
                             <FormDivStyle>
-                                <H5Style>부상자 수</H5Style>
+                                <H5Style>The number of injuries</H5Style>
                                 <ConnectDiv>
                                     <InputStyle id="width_short" onChange={e => setInjurynumber(Number(e.target.value))}/>
-                                    <H5Style>명</H5Style>
+                                    <H5Style>people</H5Style>
                                 </ConnectDiv>
                             </FormDivStyle>
                         </InfoPeopleNum>
 
-                        <H5Style>사망자 명단</H5Style>
+                        <H5Style>A list of dead</H5Style>
                         <InputStyle id="height_long" onChange={e => setDeathlist(e.target.value)}/>
 
-                        <H5Style>부상자 명단</H5Style>
+                        <H5Style>A list of injuries</H5Style>
                         <InputStyle id="height_long" onChange={e => setInjurylist(e.target.value)}/>
 
-                        <H5Style>재산 피해</H5Style>
+                        <H5Style>Property damage</H5Style>
                         <ConnectDiv>
                             <InputStyle onChange={e => setProperty(Number(e.target.value))}/>
-                            <H5Style>원</H5Style>
+                            <H5Style>KRW</H5Style>
                         </ConnectDiv>
                     </InfoDamageStyle>
 
                     <InfoMobilizationStyle>
-                        <H4Style>동원 상황</H4Style>
+                        <H4Style>Mobilization situation</H4Style>
                         <InfoPeopleNum>
                             <FormDivStyle>
-                                <H5Style>인원</H5Style>
+                                <H5Style>Personnel</H5Style>
                                 <ConnectDiv>
                                     <InputStyle id="width_short" onChange={e => setNumber(Number(e.target.value))}/>
-                                    <H5Style>명</H5Style>
+                                    <H5Style>people</H5Style>
                                 </ConnectDiv>
                             </FormDivStyle>
                             
                             <FormDivStyle>
-                                <H5Style>장비</H5Style>
+                                <H5Style>Equipment</H5Style>
                                 <ConnectDiv>
                                     <InputStyle id="width_short" onChange={e => setEquipment(Number(e.target.value))}/>
-                                    <H5Style>대</H5Style>
+                                    <H5Style>pieces</H5Style>
                                 </ConnectDiv>
                             </FormDivStyle>
                         </InfoPeopleNum>
                     </InfoMobilizationStyle>
 
                     <InfoActionStyle>
-                        <H4Style>조치 사항</H4Style>
+                        <H4Style>Action</H4Style>
                         <InputStyle id="height_long" onChange={e => setAction(e.target.value)}/>
                     </InfoActionStyle>
                 </InputboxStyle>

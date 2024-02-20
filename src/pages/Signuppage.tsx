@@ -170,7 +170,6 @@ const Signup = () => {
   };  
   
   const doChangeSecondSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = e.target.value;
     setTextdocityselected2(e.target.options[e.target.selectedIndex].text);
   }
   
@@ -178,55 +177,55 @@ const Signup = () => {
   return(
     <div className="Signuppage">
       <SignuppageStyle>
-        <h3 id="page_title">회원가입</h3>
+        <h3 id="page_title">Signup</h3>
 
         <InputboxStyle>
           <NamedivStyle>
-              <H5Style>이름</H5Style> 
+              <H5Style>Name</H5Style> 
               <InputStyle onChange={e => setName(e.target.value)}/>
           </NamedivStyle>
 
           <IDdivStyle>
               <TitleStyle>
-                <H5Style>아이디</H5Style>
-                {IdConfirm === false && <h6>아이디가 중복입니다</h6>}  
-                {IdConfirm === true && <h6>사용 가능한 아이디입니다</h6>}  
+                <H5Style>Id</H5Style>
+                {IdConfirm === false && <h6>The ID is duplicated.</h6>}  
+                {IdConfirm === true && <h6>Available.</h6>}  
               </TitleStyle>
               <InputButtonStyle>
                   <InputStyle onChange={e => setId(e.target.value)} type='text'/>
-                  <Button text="중복 확인" length="short" onClick={idCheck} />
+                  <Button text="ID Check" length="short" onClick={idCheck} />
               </InputButtonStyle>
           </IDdivStyle>
 
           <PwdivStyle>
-              <H5Style>비밀번호</H5Style>
+              <H5Style>Password</H5Style>
               <InputStyle onChange={e => setPassword(e.target.value)} type='password'/>
-              <H5Style>비밀번호 확인</H5Style>
+              <H5Style>Password Check</H5Style>
               <InputStyle onChange={e => setPasswordcheck(e.target.value)} type='password'/>
           </PwdivStyle>
 
           <DepartmentdivStyle>
-              <H5Style>소속</H5Style>
+              <H5Style>Department</H5Style>
               <InputStyle onChange={e => setDepartment(e.target.value)}/>
           </DepartmentdivStyle>
 
           <AreadivStyle>
-              <H5Style>관할구역</H5Style>
+              <H5Style>Jurisdiction</H5Style>
               <SelectStyle>
-              <Selectbox
-                  docityselected={docityselected}
-                  doChange={doChange}
-                  docityfilteredOptions={docityfilteredOptions}
-                  doChangeSecondSelect={doChangeSecondSelect}/>
+                <Selectbox
+                    docityselected={docityselected}
+                    doChange={doChange}
+                    docityfilteredOptions={docityfilteredOptions}
+                    doChangeSecondSelect={doChangeSecondSelect}/>
               </SelectStyle>
           </AreadivStyle>
 
           <PhonedivStyle>
-              <H5Style>연락처</H5Style>
+              <H5Style>Phone Number</H5Style>
               <InputStyle onChange={e => setPhonenumber(e.target.value)}/>
           </PhonedivStyle>
 
-          <Button text="가입하기" onClick={onSignup}/>
+          <Button text="SignUp" onClick={onSignup}/>
         </InputboxStyle>
       </SignuppageStyle>
     </div>

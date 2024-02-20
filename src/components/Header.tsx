@@ -31,13 +31,13 @@ const Header = () => {
 
             <Link to="/reportlist">
                 <div className="reportlist">
-                    <FontAwesomeIcon icon={faFile} /> 보고서
+                    <FontAwesomeIcon icon={faFile} /> Report
                 </div>
             </Link>
 
             <Link to="/mypage">
                 <div className="my">
-                    <FontAwesomeIcon icon={faUser} /> 마이페이지
+                    <FontAwesomeIcon icon={faUser} /> Mypage
                 </div>
             </Link>
         </StyledHeader>

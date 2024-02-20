@@ -102,10 +102,8 @@ const Main = () => {
             <FontAwesomeIcon icon={faCircleInfo} style={{color: "#4350A7"}} size='2xl' id="iconinfo"/>
             
             <InfoTextStyle>
-              {/* <FontAwesomeIcon icon={faFire} style={{color: "#4350A7"}}  size='xl' id="iconfire"/>
-              <H4Style>클릭 시 화재 정보 확인 가능</H4Style> */}
-              <H4Style>지도가 제대로 로드되지 않는다면</H4Style>
-              <H4Style>새로고침을 진행해주세요</H4Style>
+              <H4Style>If the map doesn't load properly,</H4Style>
+              <H4Style>please refresh</H4Style>
             </InfoTextStyle>
         </InfoStyle>
 

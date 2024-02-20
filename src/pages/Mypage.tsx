@@ -86,33 +86,33 @@ const My = () => {
         <div className="mypage">
             <Header />
             <ChangemypageStyle>
-            <h3 id="page_title">마이 페이지</h3>
+            <h3 id="page_title">My Information</h3>
 
             <InputboxStyle>
             <NamedivStyle>
-                <H5Style>이름</H5Style> 
+                <H5Style>Name</H5Style> 
                 <InputStyle type="text" value={data ? data.name : ''} />
             </NamedivStyle>
 
             <IDdivStyle>
-                <H5Style>아이디</H5Style>
+                <H5Style>ID</H5Style>
                 <InputStyle type="text" value={data ? data.userId : ''}/>
             </IDdivStyle>
 
             <BelongdivStyle>
-                <H5Style>소속</H5Style>
+                <H5Style>Department</H5Style>
                 <InputStyle type="text" value={data ? data.department : ''}/>
             </BelongdivStyle>
 
             <AreadivStyle>
-                <H5Style>관할구역</H5Style>
+                <H5Style>Jurisdiction</H5Style>
                 <SelectStyle>
                 {data ? data.area : ''}
                 </SelectStyle>
             </AreadivStyle>
 
             <PhonedivStyle>
-                <H5Style>연락처</H5Style>
+                <H5Style>Phone Number</H5Style>
                 <InputStyle type="text" value={data ? data.phoneNo : ''}/>
             </PhonedivStyle>
             </InputboxStyle>

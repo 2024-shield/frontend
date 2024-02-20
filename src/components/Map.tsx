@@ -29,9 +29,8 @@ const Map: React.FC<MapProps> = ({ lat, lng }) => {
 
 
   useEffect(() => {
-    // 마커 클릭 이벤트를 감지합니다.
     const markerClickEvent = (event: Event) => {
-      const customEvent = event as CustomEvent<string>;  // 이벤트를 CustomEvent로 타입 캐스팅합니다.
+      const customEvent = event as CustomEvent<string>;
       if (customEvent.detail === 'marker1' || customEvent.detail === 'marker2') {
         setIsOpen(true);
       }
@@ -57,26 +56,22 @@ const Map: React.FC<MapProps> = ({ lat, lng }) => {
     window.initMap = () => {
       const mapOptions = {
         center: { lat: 37.5494, lng: 126.9712 },
-        zoom: 13,
+        zoom: 11,
       };
 
       mapObjRef.current = new window.google.maps.Map(mapRef.current!, mapOptions);
-      // 첫 번째 위치에 마커를 추가합니다.
+
       const marker1 = new window.google.maps.Marker({
         position: { lat: 37.5455, lng: 126.9613 },
-        title: "서울특별시 용산구 효창원로 177-18 <효창공원>",
+        title: "177-18, Hyochangwon-ro, Yongsan-gu, Seoul, Republic of Korea",
       });
 
-      // 두 번째 위치에 마커를 추가합니다.
       const marker2 = new window.google.maps.Marker({
         position: { lat: 37.5526, lng: 126.9864 },
-        title: "서울특별시 중구 삼일대로 231 <남산공원>",
+        title: "231, Samil-daero, Jung-gu, Seoul, Republic of Korea",
       });
 
-      // 마커를 참조에 저장합니다.
       markersRef.current = [marker1, marker2];
-
-      // 마커들을 지도에 추가합니다.
       markersRef.current.forEach(marker => marker.setMap(mapObjRef.current));
 
       marker1.addListener("click", () => {
@@ -99,7 +94,7 @@ const Map: React.FC<MapProps> = ({ lat, lng }) => {
 
   useEffect(() => {
     if (mapObjRef.current) {
-      mapObjRef.current.setCenter({ lat: lat, lng: lng });  // 위도, 경도가 변경될 때마다 지도의 중심을 변경합니다.
+      mapObjRef.current.setCenter({ lat: lat, lng: lng });
     }
   }, [lat, lng]);
 

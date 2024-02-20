@@ -58,7 +58,7 @@ const Reportlist = () => {
         <div className="Reportpage">
             <Header />
             <ReportlistpageStyle>
-                <h3 id="page_title">보고서 내역</h3>
+                <h3 id="page_title">Report List</h3>
 
                 <ListboxStyle>
                 {reports.map((report) => (

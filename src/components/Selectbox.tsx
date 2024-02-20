@@ -19,20 +19,20 @@ const SelectboxStyle = styled.div`
 `;
 
 const docityList: Option[] = [
-    { value: 'Seoul', name: '서울특별시' },
-    { value: 'Busan', name: '부산광역시' },
-    { value: 'Daegu', name: '대구광역시' },
-    { value: 'Incheon', name: '인천광역시' },
-    { value: 'Gwangju', name: '광주광역시' },
-    { value: 'Daejeon', name: '대전광역시' },
-    { value: 'Ulsan', name: '울산광역시' },
+    { value: 'Seoul', name: 'Seoul' },
+    { value: 'Busan', name: 'Busan' },
+    { value: 'Daegu', name: 'Daegu' },
+    { value: 'Incheon', name: 'Incheon' },
+    { value: 'Gwangju', name: 'Gwangju' },
+    { value: 'Daejeon', name: 'Daejeon' },
+    { value: 'Ulsan', name: 'Ulsan' },
     // { value: "Sejong", name: "세종특별자치시" },
-    { value: 'Gyeonggi-do', name: '경기도' },
-    { value: 'Gangwon-do', name: '강원도' },
-    { value: 'Chungcheong-do', name: '충청도' },
-    { value: 'Jeonla-do', name: '전라도' },
-    { value: 'Gyeongsang-do', name: '경상도' },
-    { value: 'Jeju', name: '제주' },
+    { value: 'Gyeonggi-do', name: 'Gyeonggi-do' },
+    { value: 'Gangwon-do', name: 'Gangwon-do' },
+    { value: 'Chungcheong-do', name: 'Chungcheong-do' },
+    { value: 'Jeonla-do', name: 'Jeonla-do' },
+    { value: 'Gyeongsang-do', name: 'Gyeongsang-do' },
+    { value: 'Jeju', name: 'Jeju' },
   ];
   
 const Selectbox: React.FC<SelectboxProps> = ({

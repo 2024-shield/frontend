@@ -98,7 +98,7 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
     }, [latlng]);
 
     const getWindDirection = (deg: number) => {
-        const directions = ['북', '북동', '동', '남동', '남', '남서', '서', '북서'];
+        const directions = ['North', 'Northeast', 'East', 'Southeast', 'South', 'Southwest', 'West', 'Northwest'];
         const value = Math.floor((deg + 22.5) / 45);
         return directions[value % 8];
      };
@@ -122,21 +122,18 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
                     <>
                         <h5>{title}</h5>
                         <ButtonboxStyle>
-                            <Button text="보고서 작성하기" onClick={() => onSubmit(title)} />
+                            <Button text="Write Report" onClick={() => onSubmit(title)} />
                         </ButtonboxStyle>
                     </>
                 )}
-
-
-
                 {weatherData && (
                     <WeatherContainerStyle>
-                        <WeatherDivStyle>현재 온도 : {(weatherData.main.temp - 273.15).toFixed(2)} °C</WeatherDivStyle>
-                        <WeatherDivStyle>날씨 정보 : {weatherData.weather[0].main} - {weatherData.weather[0].description}</WeatherDivStyle>
-                        <WeatherDivStyle>습도 : {weatherData.main.humidity} %</WeatherDivStyle>
-                        <WeatherDivStyle>풍향 : {getWindDirection(weatherData.wind.deg)}</WeatherDivStyle>
-                        <WeatherDivStyle>풍속 : {weatherData.wind.speed} m/s</WeatherDivStyle>
-                        <WeatherDivStyle>구름 : {weatherData.clouds.all} %</WeatherDivStyle>
+                        <WeatherDivStyle>Current temperature : {(weatherData.main.temp - 273.15).toFixed(2)} °C</WeatherDivStyle>
+                        <WeatherDivStyle>Weather Information : {weatherData.weather[0].main} - {weatherData.weather[0].description}</WeatherDivStyle>
+                        <WeatherDivStyle>Humidity : {weatherData.main.humidity} %</WeatherDivStyle>
+                        <WeatherDivStyle>Wind direction : {getWindDirection(weatherData.wind.deg)}</WeatherDivStyle>
+                        <WeatherDivStyle>Wind Speed : {weatherData.wind.speed} m/s</WeatherDivStyle>
+                        <WeatherDivStyle>Cloud : {weatherData.clouds.all} %</WeatherDivStyle>
                     </WeatherContainerStyle>
                 )}
                 
