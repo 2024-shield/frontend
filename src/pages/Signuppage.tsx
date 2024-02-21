@@ -128,7 +128,7 @@ const Signup = () => {
       });
     }
 
-  const [docityselected, setdocitySelected] = useState('Seoul');
+  const [docityselected, setdocitySelected] = useState('Select');
   const [docityfilteredOptions, docitysetFilteredOptions] = useState<Option[]>([]);
   const [textdocityselected1, setTextdocityselected1] = useState('서울특별시');
   const [textdocityselected2, setTextdocityselected2] = useState('강남구');

@@ -33,7 +33,7 @@ const InfoTextStyle = styled.div`
 `
 
 const Main = () => {
-  const [docityselected, setdocitySelected] = useState('Seoul');
+  const [docityselected, setdocitySelected] = useState('Select');
   const [docityfilteredOptions, docitysetFilteredOptions] = useState<Option[]>([]);
   const [longitudeselected, setlongitudeSelected] = useState(126.9712);
   const [latitudeselected, setlatitudeSelected] = useState(37.5494);

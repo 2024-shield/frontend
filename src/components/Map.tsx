@@ -56,7 +56,7 @@ const Map: React.FC<MapProps> = ({ lat, lng }) => {
     window.initMap = () => {
       const mapOptions = {
         center: { lat: 37.5494, lng: 126.9712 },
-        zoom: 11,
+        zoom: 11.5,
       };
 
       mapObjRef.current = new window.google.maps.Map(mapRef.current!, mapOptions);

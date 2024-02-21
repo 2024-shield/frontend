@@ -19,6 +19,7 @@ const SelectboxStyle = styled.div`
 `;
 
 const docityList: Option[] = [
+    { value: 'Choose Your Jurisdiction', name: 'Select'},
     { value: 'Seoul', name: 'Seoul' },
     { value: 'Busan', name: 'Busan' },
     { value: 'Daegu', name: 'Daegu' },
