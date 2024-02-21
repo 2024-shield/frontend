@@ -12,6 +12,10 @@ interface ModalProps{
     onClick? : () => void;
 }
 
+interface ImageStyleProps {
+    url: string;
+}
+
 const ModalWrap = styled.div`
   position: fixed;
   display: flex;
@@ -43,7 +47,7 @@ const ModalContainer = styled.div`
     position: relative;
     z-index: 25;
     width: 360px;
-    height: 70vh;
+    height: 80vh;
 `;
 
 const CloseButtonStyle = styled.div`
@@ -68,45 +72,54 @@ const InfoContainerStyle = styled.div`
 `
 
 const WeatherContainerStyle = styled.div`
-    
+    margin: 10px
 `
 
 const WeatherDivStyle = styled.div`
     padding: 10px 0px 0px 0px;
 `
 
+const ImageStyle = styled.div<ImageStyleProps>`
+    width: 300px;
+    height: 150px;
+    background-image: url(${props => props.url});
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+`
+
 
 const Modal = ({ title, latlng, onClick }: ModalProps) =>{
     const [weatherData, setWeatherData] = useState<any>(null);
     const [camnum, setCamnum] = useState<number>(2);
+    const [imgurl, setImgurl] = useState<string>("");
   
     useEffect(() => {
         if(latlng){
-            if(latlng.lat() ===  37.5455){ setCamnum(1) }
+            if(latlng.lat() ===  37.5455){ 
+                setCamnum(1);
+            }
+        }
+    }, [latlng]);
 
+    useEffect(() => {
+        if(latlng){
             fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latlng.lat()}&lon=${latlng.lng()}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`)
-                .then(response => response.json())
-                .then(data => setWeatherData(data))
-                .catch(error => console.error('Error:', error));
+            .then(response => response.json())
+            .then(data => setWeatherData(data))
+            .catch(error => console.error('Error:', error));
         }
 
-        // axios.get('http://localhost:8080/api/fire-Info')
-        // .then(response => {
-        //     console.log(response.data)
-        // })
-        // .catch(error => {
-        //     console.error('Error:', error);
-        // });
-
-        axios.get("http://localhost:8080/api/fire-Info")
-        .then(response => {
+        axios.post(`http://localhost:8080/api/fire-Info/${camnum}`)
+            .then(response => {
+            console.log("카메라다" + camnum);
             console.log(response.data)
+            setImgurl(response.data);
         })
         .catch(error => {
             console.error('Error:', error);
         });
-
-    }, [latlng]);
+    }, [camnum])
 
     const getWindDirection = (deg: number) => {
         const directions = ['North', 'Northeast', 'East', 'Southeast', 'South', 'Southwest', 'West', 'Northwest'];
@@ -147,6 +160,8 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
                         <WeatherDivStyle>Cloud : {weatherData.clouds.all} %</WeatherDivStyle>
                     </WeatherContainerStyle>
                 )}
+
+                <ImageStyle url={imgurl}>.</ImageStyle>
                 
             </InfoContainerStyle>
         </ModalContainer>
