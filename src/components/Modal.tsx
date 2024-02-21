@@ -41,7 +41,7 @@ const ModalContainer = styled.div`
     display: flex;
     flex-direction: column;
     border-radius: 5px;
-    padding: 30px 30px;
+    padding: 10px 15px;
     border: 1px solid white;
     background-color: white;
     position: relative;
@@ -68,7 +68,9 @@ const ButtonboxStyle = styled.div`
 `
 
 const InfoContainerStyle = styled.div`
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `
 
 const WeatherContainerStyle = styled.div`
@@ -80,8 +82,9 @@ const WeatherDivStyle = styled.div`
 `
 
 const ImageStyle = styled.div<ImageStyleProps>`
-    width: 300px;
-    height: 150px;
+    width: 280px;
+    height: 130px;
+    margin-bottom: 5px;
     background-image: url(${props => props.url});
     background-position: center;
     background-repeat: no-repeat;
@@ -92,6 +95,9 @@ const ImageStyle = styled.div<ImageStyleProps>`
 const Modal = ({ title, latlng, onClick }: ModalProps) =>{
     const [weatherData, setWeatherData] = useState<any>(null);
     const [camnum, setCamnum] = useState<number>(2);
+    const [date, setDate] = useState<string>("");
+    const [time, setTime] = useState<string>("");
+    const [percentage, setPercentage] = useState<string>("");
     const [imgurl, setImgurl] = useState<string>("");
   
     useEffect(() => {
@@ -120,6 +126,12 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
             console.error('Error:', error);
         });
     }, [camnum])
+
+    useEffect(() => {
+        setDate(imgurl.substring(68, 76))
+        setTime(imgurl.substring(77, 83))
+        setPercentage(imgurl.substring(89, 91))
+    }, [imgurl])
 
     const getWindDirection = (deg: number) => {
         const directions = ['North', 'Northeast', 'East', 'Southeast', 'South', 'Southwest', 'West', 'Northwest'];
@@ -162,6 +174,9 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
                 )}
 
                 <ImageStyle url={imgurl}>.</ImageStyle>
+                <div>Date : {date}</div>
+                <div>Time : {time}</div>
+                <div>Percentage : {percentage} %</div>
                 
             </InfoContainerStyle>
         </ModalContainer>
