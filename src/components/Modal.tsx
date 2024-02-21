@@ -41,7 +41,7 @@ const ModalContainer = styled.div`
     display: flex;
     flex-direction: column;
     border-radius: 5px;
-    padding: 10px 15px;
+    padding: 15px 15px;
     border: 1px solid white;
     background-color: white;
     position: relative;
@@ -77,8 +77,8 @@ const WeatherContainerStyle = styled.div`
     margin: 10px
 `
 
-const WeatherDivStyle = styled.div`
-    padding: 10px 0px 0px 0px;
+const InforDivStyle = styled.div`
+    padding: 8px 0px 0px 0px;
 `
 
 const ImageStyle = styled.div<ImageStyleProps>`
@@ -91,10 +91,8 @@ const ImageStyle = styled.div<ImageStyleProps>`
     background-size: cover;
 `
 
-
 const Modal = ({ title, latlng, onClick }: ModalProps) =>{
     const [weatherData, setWeatherData] = useState<any>(null);
-    const [camnum, setCamnum] = useState<number>(2);
     const [date, setDate] = useState<string>("");
     const [time, setTime] = useState<string>("");
     const [percentage, setPercentage] = useState<string>("");
@@ -102,30 +100,32 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
   
     useEffect(() => {
         if(latlng){
-            if(latlng.lat() ===  37.5455){ 
-                setCamnum(1);
-            }
-        }
-    }, [latlng]);
-
-    useEffect(() => {
-        if(latlng){
             fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latlng.lat()}&lon=${latlng.lng()}&appid=${import.meta.env.VITE_WEATHER_API_KEY}`)
             .then(response => response.json())
             .then(data => setWeatherData(data))
             .catch(error => console.error('Error:', error));
-        }
 
-        axios.post(`http://localhost:8080/api/fire-Info/${camnum}`)
-            .then(response => {
-            console.log("카메라다" + camnum);
-            console.log(response.data)
-            setImgurl(response.data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }, [camnum])
+            if(latlng.lat() ===  37.5455){
+                axios.get("http://localhost:8080/api/fire-Info/cam1")
+                .then(response => {
+                    setImgurl(response.data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+
+            else{
+                axios.get("http://localhost:8080/api/fire-Info/cam2")
+                .then(response => {
+                    setImgurl(response.data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        }
+    }, [latlng]);
 
     useEffect(() => {
         setDate(imgurl.substring(68, 76))
@@ -164,19 +164,19 @@ const Modal = ({ title, latlng, onClick }: ModalProps) =>{
                 )}
                 {weatherData && (
                     <WeatherContainerStyle>
-                        <WeatherDivStyle>Current temperature : {(weatherData.main.temp - 273.15).toFixed(2)} °C</WeatherDivStyle>
-                        <WeatherDivStyle>Weather Information : {weatherData.weather[0].main} - {weatherData.weather[0].description}</WeatherDivStyle>
-                        <WeatherDivStyle>Humidity : {weatherData.main.humidity} %</WeatherDivStyle>
-                        <WeatherDivStyle>Wind direction : {getWindDirection(weatherData.wind.deg)}</WeatherDivStyle>
-                        <WeatherDivStyle>Wind Speed : {weatherData.wind.speed} m/s</WeatherDivStyle>
-                        <WeatherDivStyle>Cloud : {weatherData.clouds.all} %</WeatherDivStyle>
+                        <InforDivStyle>Current temperature : {(weatherData.main.temp - 273.15).toFixed(2)} °C</InforDivStyle>
+                        <InforDivStyle>Weather Information : {weatherData.weather[0].main} - {weatherData.weather[0].description}</InforDivStyle>
+                        <InforDivStyle>Humidity : {weatherData.main.humidity} %</InforDivStyle>
+                        <InforDivStyle>Wind direction : {getWindDirection(weatherData.wind.deg)}</InforDivStyle>
+                        <InforDivStyle>Wind Speed : {weatherData.wind.speed} m/s</InforDivStyle>
+                        <InforDivStyle>Cloud : {weatherData.clouds.all} %</InforDivStyle>
                     </WeatherContainerStyle>
                 )}
 
-                <ImageStyle url={imgurl}>.</ImageStyle>
-                <div>Date : {date}</div>
-                <div>Time : {time}</div>
-                <div>Percentage : {percentage} %</div>
+                <ImageStyle url={imgurl} />
+                <InforDivStyle>Date : {date}</InforDivStyle>
+                <InforDivStyle>Time : {time}</InforDivStyle>
+                <InforDivStyle>Percentage : {percentage} %</InforDivStyle>
                 
             </InfoContainerStyle>
         </ModalContainer>

@@ -108,7 +108,7 @@ const Signup = () => {
           phoneNo: phonenumber
         };
 
-        axios.post('http://localhost:8080/api/join', user)
+        axios.post('http://localhost:8080/api/join', user, { withCredentials: true})
         .then(response => {
             console.log(response.data);
             navigate("/") // 회원가입 후 페이지 이동
